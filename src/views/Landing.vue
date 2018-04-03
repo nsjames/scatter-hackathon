@@ -1,0 +1,468 @@
+<template>
+    <section>
+        <hero></hero>
+        <section class="landing">
+
+            <div ref="fmenu" class="floating-menu-placeholder" :class="{'active':floatMenu}"></div>
+            <section class="floating-menu" :class="{'float':floatMenu}">
+                <figure class="link" :class="{'active':activeMenu === 'about'}" @click="scrollToRef('about')">About</figure>
+                <figure class="link" :class="{'active':activeMenu === 'events'}" @click="scrollToRef('events')">Dates & Events</figure>
+                <figure class="link" :class="{'active':activeMenu === 'sponsors'}" @click="scrollToRef('sponsors')">Sponsors</figure>
+                <figure class="link" :class="{'active':activeMenu === 'participate'}" @click="scrollToRef('participate')">Participate</figure>
+            </section>
+
+            <section class="box large-pad">
+                <h2 style="margin-top:0;">Hackathon Begins</h2>
+                <figure class="os clock">
+                    41 : 22 : 12 : 02
+                </figure>
+            </section>
+
+            <!--<section class="box blue-border">-->
+                <!--<h2>The Hackathon has started!</h2>-->
+                <!--<p><u>Please read the rules before submitting your project.</u></p>-->
+
+                <!--<figure class="button"><b>Submit</b> Your Project</figure>-->
+            <!--</section>-->
+
+            <!--<section class="box blue-border">-->
+                <!--<h2>The Voting Period has started!</h2>-->
+
+                <!--<figure class="button"><b>View</b> The Projects</figure>-->
+            <!--</section>-->
+
+
+
+            <hr/>
+            <h1 ref="about">blockchains <b>need</b> dapps</h1>
+            <figure class="text">
+                The EOS blockchain is an infant with no rattle. It's very life has been left in our capable hands by Gepetto.
+                It's time that we take up arms and fight for the blockchain that we all believe in.
+                <br><br>
+                The Scatter Hackathon's aim is to provide a blanket of decentralized applications ready to be deployed once a
+                chain goes live. To make sure that that happens we have gotten together with prominent Block Producer candidates
+                and pooled our resources to bring you incredible prizes and live events.
+            </figure>
+
+            <hr/>
+            <h1>the <b>prizes</b> are awesome</h1>
+
+            <section class="prize-box blue-back" style="margin-top:30px;">
+                <section class="left">1st Place</section>
+                <section class="right">
+                    <figure class="prize">Big bag 'o EOS</figure>
+                    <figure class="prize">Ledger Nano S</figure>
+                    <figure class="prize">EOS Keychain</figure>
+                    <figure class="prize">Promoted Dapp on <u>eosindex.io</u></figure>
+                </section>
+            </section>
+
+            <section class="prize-box">
+                <section class="left">2nd Place</section>
+                <section class="right">
+                    <figure class="prize">Less big bag 'o EOS</figure>
+                    <figure class="prize">Ledger Nano S</figure>
+                    <figure class="prize">EOS Keychain</figure>
+                </section>
+            </section>
+
+            <section class="prize-box">
+                <section class="left">8 Runners Up</section>
+                <section class="right">
+                    <figure class="prize">EOS Keychain</figure>
+                    <figure class="prize">Scatter Hackathon T-Shirt</figure>
+                </section>
+            </section>
+
+
+            <hr/>
+            <h1 ref="events">we all like your <b>pajamas</b></h1>
+            <figure class="text">
+                To make sure that really great dapps get created the hackathon itself will be held purely online and
+                not at any single location which might limit the ability for people to participate. You can do it from
+                home in your pajamas.
+                <br><br>
+                We will however be holding a few announcement events across the globe which you are free to show up at.
+                In your pajamas if you please.
+            </figure>
+
+            <figure class="box-head" style="margin-top:30px;">Online Events</figure>
+            <section class="box blue-border no-border-top" style="padding-top:50px; padding-bottom:50px;">
+                <h3>Hackathon Open To Submissions</h3>
+                <h4><b>May 8th</b> to <b>May 15th</b></h4>
+
+                <hr/>
+
+                <h3>Voting Period</h3>
+                <h4><b>May 16th</b> to <b>May 18th</b></h4>
+
+                <hr/>
+
+                <h3>Winner Announcement Ceremonies</h3>
+                <h4><b>May 19th</b></h4>
+            </section>
+
+            <figure class="box-head" style="margin-top:20px;">Live Events</figure>
+            <section class="box blue-border no-border-top" style="padding-bottom:0;">
+                <section class="event-boxes">
+                    <section class="event-box" v-for="ev in liveEvents">
+                        <figure class="img" style="background-image:url(https://lonelyplanetimages.imgix.net/mastheads/GettyImages-538096543_medium.jpg?sharp=10&vib=20&w=1200);"></figure>
+                        <figure class="button small">{{ev.location}}</figure>
+                    </section>
+                </section>
+
+                <!--<figure class="button" style="margin-top:20px;">Want to <b>Host</b> and Event?</figure>-->
+            </section>
+
+
+            <hr/>
+            <h1 ref="sponsors"><b>sponsored</b> by teamwork</h1>
+            <figure class="text">
+                The blockchain is about decentralization, and that means that the events should be decentralized as well.
+                This hackathon is a community effort between some of the existing EOS dapps, users in the community and well respected Block Producer candidates.
+            </figure>
+
+            <section class="sponsor-head">Block Producer Candidates</section>
+            <section class="sponsors">
+                <section class="sponsor" v-for="sponsor in blockProducers">
+                    <figure class="img" :style="{ backgroundImage: `url(${sponsor.img})` }"></figure>
+                    <section class="info">
+                        <figure class="name"><b>{{sponsor.name}}</b>{{sponsor.name2}}</figure>
+                        <figure class="url">{{sponsor.url}}</figure>
+                        <figure class="bio">{{sponsor.bio}}</figure>
+                    </section>
+                </section>
+            </section>
+
+            <section class="sponsor-head">Applications & Community</section>
+            <section class="sponsors">
+                <section class="sponsor" v-for="sponsor in dappsAndCommunity">
+                    <figure class="img" :style="{ backgroundImage: `url(${sponsor.img})` }"></figure>
+                    <section class="info">
+                        <figure class="name"><b>{{sponsor.name}}</b>{{sponsor.name2}}</figure>
+                        <figure class="url">{{sponsor.url}}</figure>
+                        <figure class="bio">{{sponsor.bio}}</figure>
+                    </section>
+                </section>
+            </section>
+
+
+            <hr/>
+            <h1 ref="participate">want to <b>participate</b> too?</h1>
+            <figure class="participate-head">Developers<figure class="line"></figure></figure>
+            <figure class="text">
+                Once the Hackathon is open you will be able to upload contracts to a Hackathon EOS Node, and push applications to a Hackathon Server using Docker images.
+                <br><br>
+                To be able to push projects to the servers you will need to add your project to this website. Once you do you will get an
+                EOS account to use to push contracts and login details to push docker images.
+                <br><br>
+                Every project will get a subdomain matching their project name. For instance
+                <u>hello-world.scatter-hackathon.com</u> will be the address for a Hello World project.
+            </figure>
+
+            <figure class="participate-head" style="margin-top:50px;">Everyone Else<figure class="line"></figure></figure>
+            <figure class="text">
+                Applications are the single most important thing to a smart-contract centric blockchain like EOS.
+                Whether you're in EOS for the monetary gains or for the tech itself, dapps will make it happen and keep EOS alive and thriving.
+                There are a few ways you can help and do your part.
+            </figure>
+
+            <section class="box blue-border" style="margin-top:50px;">
+                <h2>Help Raise The Pot!</h2>
+                <p>
+                    There's little that motivates people in this world more than money.
+                    We, the sponsors, have all put in as much as we can but the higher the pot gets the
+                    more developers we will attract and the more dapps will get made.
+                </p>
+
+                <figure class="button">Donate <b>EOS or ETH</b></figure>
+
+                <hr/>
+
+                <p>
+                    <b>A note about ETH</b>
+                    <br><br>
+
+                    All ETH will be converted to EOS as time goes by. You will see it leaving the address to exchanges,
+                    and then EOS will come back. We’re doing this because EOS will be needed to run applications on
+                    the mainnet and we prefer to give the winners EOS and not ETH.
+                </p>
+            </section>
+
+            <section class="box">
+                <h2>Share This Page!</h2>
+                <p>
+                    In this day and age it takes a mob to get the word out about anything.
+                    If you know any developers be sure to let them in on this opportunity.
+                </p>
+
+                <figure class="button">Share on <b>Twitter</b></figure>
+                <figure class="button short-top">Share on <b>Facebook</b></figure>
+
+                <hr/>
+
+                <p>
+                    <b>Don’t stop there.</b>
+                    <br><br>
+
+                    Write about this on Steem, Busy, Medium or any other blog platform you participate in.
+                    Tell your friends on Telegram. Post about it on Reddit. Help get the word out any way you can.
+                </p>
+            </section>
+
+            <section class="box">
+                <h2>Get Ready To Vote!</h2>
+                <p>
+                    There will be a voting period after the Hackathon closes and before the winner
+                    announcements. This wont be the final vote but it will have an impact on our decisions.
+                </p>
+
+                <figure class="button disabled"><b>View</b> the Projects</figure>
+            </section>
+
+
+
+
+
+            <div style="height:80px"></div>
+        </section>
+    </section>
+</template>
+
+<script>
+    import { mapActions, mapGetters, mapState } from 'vuex'
+    import * as Actions from '../store/constants';
+    import {RouteNames} from '../vue/Routing'
+
+    import liveEvents from '../liveEvents';
+    import blockProducers from '../blockProducers';
+    import dappsAndCommunity from '../dappsAndCommunity';
+
+    export default {
+        data(){ return {
+            floatMenu:false,
+            activeMenu:'',
+            blockProducers,
+            dappsAndCommunity,
+            liveEvents
+        }},
+        // num users
+        // pricing
+        computed: {
+            ...mapState([
+                'scatter'
+            ])
+        },
+        created () { window.addEventListener('scroll', this.handleScroll); },
+        destroyed () { window.removeEventListener('scroll', this.handleScroll); },
+        methods: {
+            handleScroll(){
+                const scroll = window.scrollY;
+                this.floatMenu = !this.floatMenu
+                    ?this.$refs.fmenu.offsetTop-20 < scroll
+                    :this.$refs.fmenu.offsetTop+20 < scroll;
+
+                const fromTop = window.innerHeight/2;
+                if(scroll > this.$refs.about.offsetTop-fromTop && scroll < this.$refs.events.offsetTop-fromTop) this.activeMenu = 'about';
+                else if(scroll > this.$refs.events.offsetTop-fromTop && scroll < this.$refs.sponsors.offsetTop-fromTop) this.activeMenu = 'events';
+                else if(scroll > this.$refs.sponsors.offsetTop-fromTop && scroll < this.$refs.participate.offsetTop-fromTop) this.activeMenu = 'sponsors';
+                else if(scroll > this.$refs.participate.offsetTop-fromTop) this.activeMenu = 'participate';
+                else this.activeMenu = '';
+            },
+            scrollToRef(ref){
+                this.$refs[ref].scrollIntoView({ behavior: 'smooth' });
+            },
+            ...mapActions([
+
+            ])
+        }
+    }
+</script>
+
+<style lang="scss">
+    .landing {
+        max-width:800px;
+        width:100%;
+        margin:0 auto;
+
+        .participate-head {
+            font-size:30px;
+            font-weight:800;
+            margin-top:30px;
+
+            .line {
+                width:100px;
+                height:1px;
+                background:#dbdbdb;
+                margin:20px 0;
+            }
+        }
+
+        .sponsor-head {
+            font-size:18px;
+            font-weight:600;
+            margin-top:80px;
+            border-bottom:1px solid #dbdbdb;
+            padding-bottom:5px;
+            margin-bottom:20px;
+        }
+
+        .sponsors {
+
+            .sponsor {
+                height:150px;
+                position: relative;
+                margin-bottom:20px;
+
+                .img {
+                    width:200px;
+                    height:150px;
+                    border-radius:4px;
+                    border:1px solid #c4c4c4;
+
+                    background-size:cover;
+                    background-position:center;
+                    float:left;
+                }
+
+                .info {
+                    float:left;
+                    margin-left:30px;
+                    width:calc(100% - 230px);
+
+                    .name {
+                        font-size:36px;
+                        color:#959595;
+
+                        b {
+                            font-weight:800;
+                            color:#505050;
+                        }
+                    }
+
+                    .url {
+                        font-size:13px;
+                        font-weight:800;
+                        text-decoration: underline;
+                    }
+
+                    .bio {
+                        font-size:16px;
+                        margin-top:12px;
+                        text-align: justify;
+                        height:80px;
+                        overflow:hidden;
+                    }
+                }
+            }
+
+        }
+
+        .event-boxes {
+            overflow:hidden;
+
+            .event-box {
+                width:calc(33.3% - 14px);
+                border-radius:4px;
+                height:220px;
+                float:left;
+                margin-right:20px;
+                margin-bottom:10px;
+
+                &:nth-child(3n+0){
+                    margin-right:0;
+                }
+
+                .img {
+                    height:150px;
+                    background-size:cover;
+                    background-position: center;
+                    overflow: hidden;
+                    border-radius:4px;
+                }
+
+                .button {
+                    margin-top:2px;
+                }
+            }
+        }
+
+        .floating-menu-placeholder {
+            height:0;
+
+            &.active {
+                height:140px;
+            }
+        }
+
+        .floating-menu {
+            height:40px;
+            line-height:40px;
+            padding:0 25px;
+            border-radius:4px;
+            border:1px solid #e5e5e5;
+            box-shadow:0 1px 2px rgba(0,0,0,0.05);
+            display:table;
+            margin:50px auto;
+            background:#fff;
+            transition: box-shadow 0.4s ease;
+            z-index:9999;
+
+            &.float {
+                position:fixed;
+                top:20px;
+                right:0;
+                left: 50%;
+                transform: translateX(-50%);
+                margin:0 auto;
+                box-shadow: 0 8px 10px rgba(0,0,0,0.04);
+            }
+
+            .link {
+                cursor: pointer;
+                font-size:11px;
+                font-weight:500;
+                font-family: 'Open Sans', sans-serif;
+                color:#cfcfcf;
+                display:inline-block;
+                margin-right:20px;
+                transition:all 0.2s ease;
+
+                &:last-child {
+                    margin:0;
+                }
+
+                &:hover, &.active {
+                    color:#478af7;
+                }
+            }
+        }
+
+        .clock {
+            font-size: 72px;
+            color:#b0b0b0;
+            font-weight: 300;
+        }
+
+        h1 {
+            text-align: center;
+            width:100%;
+            font-size:70px;
+            font-weight: 200;
+            color:#c4c4c4;
+            margin-top:-40px;
+
+            b {
+                color:#505050;
+                font-weight: 800;
+            }
+        }
+
+        .text {
+            color:#505050;
+            font-size:20px;
+            margin-top:30px;
+            text-align: justify;
+        }
+    }
+</style>
