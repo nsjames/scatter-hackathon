@@ -25,6 +25,10 @@ export default class VueInitializer {
 
     setupVuePlugins(){
         Vue.use(VueRouter);
+
+        Vue.filter('twoDigit', value => {
+            return value === 0 ? '00' : value.toString().length <= 1 ? '0'+value.toString() : value.toString();
+        })
     }
 
     registerComponents(components){

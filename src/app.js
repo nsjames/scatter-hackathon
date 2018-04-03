@@ -12,7 +12,7 @@ class App {
         const routes = Routing.routes();
         const components = [
             {tag:'view-base', vue:ViewBase},
-            {tag:'hero', vue:Hero},
+            {tag:'hero', vue:Hero}
         ];
 
         const middleware = (to, next, store) => {

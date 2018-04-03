@@ -14,7 +14,10 @@
             <section class="box large-pad">
                 <h2 style="margin-top:0;">Hackathon Begins</h2>
                 <figure class="os clock">
-                    41 : 22 : 12 : 02
+                    <span v-if="days > 0">{{days | twoDigit}} :</span>
+                    <span>{{hours | twoDigit}} :</span>
+                    <span>{{minutes | twoDigit}} :</span>
+                    <span>{{seconds | twoDigit}}</span>
                 </figure>
             </section>
 
@@ -237,6 +240,7 @@
     import liveEvents from '../liveEvents';
     import blockProducers from '../blockProducers';
     import dappsAndCommunity from '../dappsAndCommunity';
+    let timer = null;
 
     export default {
         data(){ return {
@@ -244,17 +248,34 @@
             activeMenu:'',
             blockProducers,
             dappsAndCommunity,
-            liveEvents
+            liveEvents,
+
+            now: Math.trunc((new Date()).getTime() / 1000),
+            date: null,
+            diff: 0
         }},
         // num users
         // pricing
         computed: {
+            seconds() { return Math.trunc(this.diff) % 60 },
+            minutes() { return Math.trunc(this.diff / 60) % 60 },
+            hours() { return Math.trunc(this.diff / 60 / 60) % 24 },
+            days() { return Math.trunc(this.diff / 60 / 60 / 24) },
             ...mapState([
                 'scatter'
             ])
         },
         created () { window.addEventListener('scroll', this.handleScroll); },
         destroyed () { window.removeEventListener('scroll', this.handleScroll); },
+        mounted(){
+            this.date = Math.trunc(1525737600);
+            this.now = Math.trunc((new Date()).getTime() / 1000);
+            this.diff = this.date - this.now;
+            timer = setInterval(() => {
+                this.now = Math.trunc((new Date()).getTime() / 1000);
+            }, 1000);
+        },
+
         methods: {
             handleScroll(){
                 const scroll = window.scrollY;
@@ -275,6 +296,18 @@
             ...mapActions([
 
             ])
+        },
+        watch: {
+            now(value) {
+                this.diff = this.date - this.now;
+                if(this.diff <= 0 || this.stop){
+                    this.diff = 0;
+                    clearInterval(interval);
+                }
+            }
+        },
+        destroyed() {
+            clearInterval(interval);
         }
     }
 </script>
