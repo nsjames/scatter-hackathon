@@ -132,8 +132,8 @@
                     <section class="info">
                         <figure class="name"><b>{{sponsor.name}}</b>{{sponsor.name2}}</figure>
                         <figure class="url">{{sponsor.url}}</figure>
-                        <figure class="bio">{{sponsor.bio}}</figure>
                     </section>
+                    <figure class="bio">{{sponsor.bio}}</figure>
                 </section>
             </section>
 
@@ -144,8 +144,8 @@
                     <section class="info">
                         <figure class="name"><b>{{sponsor.name}}</b>{{sponsor.name2}}</figure>
                         <figure class="url">{{sponsor.url}}</figure>
-                        <figure class="bio">{{sponsor.bio}}</figure>
                     </section>
+                    <figure class="bio">{{sponsor.bio}}</figure>
                 </section>
             </section>
 
@@ -314,9 +314,10 @@
 
 <style lang="scss">
     .landing {
-        max-width:800px;
+        max-width:840px;
         width:100%;
         margin:0 auto;
+        padding:0 20px;
 
         .participate-head {
             font-size:30px;
@@ -343,9 +344,15 @@
         .sponsors {
 
             .sponsor {
-                height:150px;
+                max-height:150px;
                 position: relative;
                 margin-bottom:20px;
+                overflow:hidden;
+
+                @media (max-width:800px) {
+                    max-height:none;
+                    overflow:hidden;
+                }
 
                 .img {
                     width:200px;
@@ -363,6 +370,10 @@
                     margin-left:30px;
                     width:calc(100% - 230px);
 
+                    @media (max-width:800px) {
+                        height:150px;
+                    }
+
                     .name {
                         font-size:36px;
                         color:#959595;
@@ -378,13 +389,23 @@
                         font-weight:800;
                         text-decoration: underline;
                     }
+                }
 
-                    .bio {
-                        font-size:16px;
-                        margin-top:12px;
-                        text-align: justify;
-                        height:80px;
-                        overflow:hidden;
+                .bio {
+                    font-size:16px;
+                    margin-top:12px;
+                    text-align: justify;
+                    height:80px;
+                    overflow:hidden;
+
+                    float:left;
+                    margin-left:30px;
+                    width:calc(100% - 230px);
+
+                    @media (max-width:800px) {
+                        width:100%;
+                        overflow:visible;
+                        margin:10px 0 0;
                     }
                 }
             }
@@ -401,6 +422,10 @@
                 float:left;
                 margin-right:20px;
                 margin-bottom:10px;
+
+                @media (max-width:800px) {
+                    width:100%;
+                }
 
                 &:nth-child(3n+0){
                     margin-right:0;
@@ -475,6 +500,10 @@
             font-size: 72px;
             color:#b0b0b0;
             font-weight: 300;
+
+            @media (max-width:800px) {
+                font-size: 50px;
+            }
         }
 
         h1 {

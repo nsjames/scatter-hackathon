@@ -48,6 +48,10 @@
             bottom:80px;
             left:0;
             right:0;
+
+            @media (max-width:800px) {
+                font-size:70px;
+            }
         }
     }
 </style>
