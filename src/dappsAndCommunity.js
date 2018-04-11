@@ -3,37 +3,37 @@ export default [
         name:'Scatter',
         name2:'',
         img:'/assets/img/sponsors/scatter.jpg',
-        url:'http://www.google.com',
-        bio:'The blockchain is about decentralization, and that means that the events should be decentralized as well. This hackathon is a community effort between some of the existing EOS dapps, users in the community and well respected Block Producer candidates.'
+        url:'https://scatter-eos.com',
+        bio:'Scatter is a web extension and future mobile application that allows users to utilize the blockchain securely without giving away their private keys and personal information.'
     },{
         name:'EOS',
         name2:' Go',
         img:'/assets/img/sponsors/eosgo.jpg',
-        url:'http://www.google.com',
-        bio:'The blockchain is about decentralization, and that means that the events should be decentralized as well. This hackathon is a community effort between some of the existing EOS dapps, users in the community and well respected Block Producer candidates.'
+        url:'https://forums.eosgo.io/',
+        bio:'EOS Go is the first source for EOS and a neutral community organization, dedicated to supporting the growth and development of all EOS public blockchains.'
     },{
         name:'Koreos',
         name2:'',
         img:'/assets/img/sponsors/koreos.jpg',
-        url:'http://www.google.com',
-        bio:'The blockchain is about decentralization, and that means that the events should be decentralized as well. This hackathon is a community effort between some of the existing EOS dapps, users in the community and well respected Block Producer candidates.'
+        url:'http://koreos.io/',
+        bio:'KOREOS.IO has built the most powerful EOS community in South Korea. They have a huge community and spread the latest EOS news in Korean via telegram, tweets, and their website.'
     },{
         name:'Chintai',
         name2:'',
         img:'/assets/img/sponsors/chintai.jpg',
-        url:'http://www.google.com',
-        bio:'The blockchain is about decentralization, and that means that the events should be decentralized as well. This hackathon is a community effort between some of the existing EOS dapps, users in the community and well respected Block Producer candidates.'
+        url:'https://chintai-eos.io/',
+        bio:'Chintai is a fully functional token leasing platform that will allow EOS token holders to generate income through token leasing, while in turn providing critical resources needed by dApp developers.'
     },{
         name:'EOS',
         name2:' Index',
         img:'/assets/img/sponsors/eosindex.jpg',
-        url:'http://www.google.com',
-        bio:'The blockchain is about decentralization, and that means that the events should be decentralized as well. This hackathon is a community effort between some of the existing EOS dapps, users in the community and well respected Block Producer candidates.'
+        url:'https://eosindex.io/',
+        bio:'EOS Index is a directory of projects/dapps based around EOS and a job platform helping projects to find developers and developers to find work.'
     },{
         name:'Jeff',
         name2:' W.',
         img:'/assets/img/sponsors/jeffw.jpg',
-        url:'http://www.google.com',
+        url:'',
         bio:'The blockchain is about decentralization, and that means that the events should be decentralized as well. This hackathon is a community effort between some of the existing EOS dapps, users in the community and well respected Block Producer candidates.'
     }
 ];

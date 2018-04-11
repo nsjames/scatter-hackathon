@@ -11,15 +11,15 @@
                 <figure class="link" :class="{'active':activeMenu === 'participate'}" @click="scrollToRef('participate')">Participate</figure>
             </section>
 
-            <section class="box large-pad">
-                <h2 style="margin-top:0;">Hackathon Begins</h2>
-                <figure class="os clock">
-                    <span v-if="days > 0">{{days | twoDigit}} :</span>
-                    <span>{{hours | twoDigit}} :</span>
-                    <span>{{minutes | twoDigit}} :</span>
-                    <span>{{seconds | twoDigit}}</span>
-                </figure>
-            </section>
+            <!--<section class="box large-pad">-->
+                <!--<h2 style="margin-top:0;">Hackathon Begins</h2>-->
+                <!--<figure class="os clock">-->
+                    <!--<span v-if="days > 0">{{days | twoDigit}} :</span>-->
+                    <!--<span>{{hours | twoDigit}} :</span>-->
+                    <!--<span>{{minutes | twoDigit}} :</span>-->
+                    <!--<span>{{seconds | twoDigit}}</span>-->
+                <!--</figure>-->
+            <!--</section>-->
 
             <!--<section class="box blue-border">-->
                 <!--<h2>The Hackathon has started!</h2>-->
@@ -39,99 +39,120 @@
             <hr/>
             <h1 ref="about">blockchains <b>need</b> dapps</h1>
             <figure class="text">
-                The EOS blockchain is an infant with no rattle. It's very life has been left in our capable hands by Gepetto.
-                It's time that we take up arms and fight for the blockchain that we all believe in.
+                The EOS blockchain is an infant with no rattle. Its very life has been left in our hands by Gepetto.
+                We can’t let block.one down; it’s time to take up arms and fight for the blockchain that we all believe in.
                 <br><br>
-                The Scatter Hackathon's aim is to provide a blanket of decentralized applications ready to be deployed once a
-                chain goes live. To make sure that that happens we have gotten together with prominent Block Producer candidates
-                and pooled our resources to bring you incredible prizes and live events.
+                Thus, The Scatter Hackathon was born. We at Scatter knew that in order for the EOS blockchain to go global,
+                it would need next-level, blow your mind dapps, and fast. To make sure that happens, we have gotten together with prominent
+                Block Producer candidates and pooled our resources to bring you incredible prizes and live events.
             </figure>
 
             <hr/>
             <h1>the <b>prizes</b> are awesome</h1>
-
-            <section class="prize-box blue-back" style="margin-top:30px;">
-                <section class="left">1st Place</section>
-                <section class="right">
-                    <figure class="prize">Big bag 'o EOS</figure>
-                    <figure class="prize">Ledger Nano S</figure>
-                    <figure class="prize">EOS Keychain</figure>
-                    <figure class="prize">Promoted Dapp on <u>eosindex.io</u></figure>
-                </section>
+            <figure class="text">
+                There will be 10 total winners, 1st place, 2nd place and 8 runner ups.
+            </figure>
+            <section class="box blue-border" style="margin-top:50px; padding-top:50px; padding-bottom:50px;">
+                <h3>The prizes will include</h3>
+                <h4>Lots of <b>EOS</b></h4><br>
+                <h4>Ledger <b>Nanos</b></h4><br>
+                <h4>Dapp <b>Promotion</b></h4><br>
+                <h4>EOS <b>Keychains</b></h4><br>
+                <h4>Hackathon <b>T-Shirts</b></h4><br>
+                <h4>And <b>More</b></h4><br>
             </section>
+            <!--<section class="prize-box blue-back" style="margin-top:30px;">-->
+                <!--<section class="left">1st Place</section>-->
+                <!--<section class="right">-->
+                    <!--<figure class="prize">Big bag 'o EOS</figure>-->
+                    <!--<figure class="prize">Ledger Nano S</figure>-->
+                    <!--<figure class="prize">EOS Keychain</figure>-->
+                    <!--<figure class="prize">Promoted Dapp on <u>eosindex.io</u></figure>-->
+                <!--</section>-->
+            <!--</section>-->
 
-            <section class="prize-box">
-                <section class="left">2nd Place</section>
-                <section class="right">
-                    <figure class="prize">Less big bag 'o EOS</figure>
-                    <figure class="prize">Ledger Nano S</figure>
-                    <figure class="prize">EOS Keychain</figure>
-                </section>
-            </section>
+            <!--<section class="prize-box">-->
+                <!--<section class="left">2nd Place</section>-->
+                <!--<section class="right">-->
+                    <!--<figure class="prize">Less big bag 'o EOS</figure>-->
+                    <!--<figure class="prize">Ledger Nano S</figure>-->
+                    <!--<figure class="prize">EOS Keychain</figure>-->
+                <!--</section>-->
+            <!--</section>-->
 
-            <section class="prize-box">
-                <section class="left">8 Runners Up</section>
-                <section class="right">
-                    <figure class="prize">EOS Keychain</figure>
-                    <figure class="prize">Scatter Hackathon T-Shirt</figure>
-                </section>
-            </section>
+            <!--<section class="prize-box">-->
+                <!--<section class="left">8 Runners Up</section>-->
+                <!--<section class="right">-->
+                    <!--<figure class="prize">EOS Keychain</figure>-->
+                    <!--<figure class="prize">Scatter Hackathon T-Shirt</figure>-->
+                <!--</section>-->
+            <!--</section>-->
 
 
             <hr/>
             <h1 ref="events">we all like your <b>pajamas</b></h1>
             <figure class="text">
-                To make sure that really great dapps get created the hackathon itself will be held purely online and
-                not at any single location which might limit the ability for people to participate. You can do it from
-                home in your pajamas.
+                To make sure that really great dapps get created the hackathon itself will be an online event,
+                instead of an in person event held at a specific location. This means you can participate from home... in your pajamas.
                 <br><br>
-                We will however be holding a few announcement events across the globe which you are free to show up at.
-                In your pajamas if you please.
+                We will however be holding a few announcement events across the globe which you are free to show up at (in your pajamas if you please).
             </figure>
 
-            <figure class="box-head" style="margin-top:30px;">Online Events</figure>
+            <figure class="box-head" style="margin-top:30px;">Online Hackathon Dates</figure>
             <section class="box blue-border no-border-top" style="padding-top:50px; padding-bottom:50px;">
-                <h3>Hackathon Open To Submissions</h3>
-                <h4><b>May 8th</b> to <b>May 15th</b></h4>
-
-                <hr/>
-
-                <h3>Voting Period</h3>
-                <h4><b>May 16th</b> to <b>May 18th</b></h4>
-
-                <hr/>
-
-                <h3>Winner Announcement Ceremonies</h3>
-                <h4><b>May 19th</b></h4>
+                <h3>Get ready for it.</h3>
+                <h4>Late <b>May</b></h4>
             </section>
+            <!--<section class="box blue-border no-border-top" style="padding-top:50px; padding-bottom:50px;">-->
+                <!--<h3>Hackathon Open To Submissions</h3>-->
+                <!--<h4><b>May 8th</b> to <b>May 15th</b></h4>-->
+
+                <!--<hr/>-->
+
+                <!--<h3>Voting Period</h3>-->
+                <!--<h4><b>May 16th</b> to <b>May 18th</b></h4>-->
+
+                <!--<hr/>-->
+
+                <!--<h3>Winner Announcement Ceremonies</h3>-->
+                <!--<h4><b>May 19th</b></h4>-->
+            <!--</section>-->
 
             <figure class="box-head" style="margin-top:20px;">Live Events</figure>
-            <section class="box blue-border no-border-top" style="padding-bottom:0;">
-                <section class="event-boxes">
-                    <section class="event-box" v-for="ev in liveEvents">
-                        <figure class="img" style="background-image:url(https://lonelyplanetimages.imgix.net/mastheads/GettyImages-538096543_medium.jpg?sharp=10&vib=20&w=1200);"></figure>
-                        <figure class="button small">{{ev.location}}</figure>
-                    </section>
-                </section>
-
-                <!--<figure class="button" style="margin-top:20px;">Want to <b>Host</b> and Event?</figure>-->
+            <section class="box blue-border no-border-top" style="padding-top:50px; padding-bottom:50px;">
+                <h3>Keep your eyes peeled.</h3>
+                <h4>To Be <b>Announced</b></h4>
             </section>
+            <!--<section class="box blue-border no-border-top" style="padding-bottom:0;">-->
+                <!--<section class="event-boxes">-->
+                    <!--<section class="event-box" v-for="ev in liveEvents">-->
+                        <!--<figure class="img" style="background-image:url(https://lonelyplanetimages.imgix.net/mastheads/GettyImages-538096543_medium.jpg?sharp=10&vib=20&w=1200);"></figure>-->
+                        <!--<figure class="button small">{{ev.location}}</figure>-->
+                    <!--</section>-->
+                <!--</section>-->
+
+                <!--&lt;!&ndash;<figure class="button" style="margin-top:20px;">Want to <b>Host</b> and Event?</figure>&ndash;&gt;-->
+            <!--</section>-->
 
 
             <hr/>
             <h1 ref="sponsors"><b>sponsored</b> by teamwork</h1>
             <figure class="text">
                 The blockchain is about decentralization, and that means that the events should be decentralized as well.
-                This hackathon is a community effort between some of the existing EOS dapps, users in the community and well respected Block Producer candidates.
+                This hackathon is a community effort between some of the existing EOS dapps, users in the community and well
+                respected Block Producer candidates. Block.one is hosting their own hackathon which is not
+                associated with <b>Hack Til Dawn</b> in any way, shape, or form.
             </figure>
 
             <section class="sponsor-head">Block Producer Candidates</section>
             <section class="sponsors">
                 <section class="sponsor" v-for="sponsor in blockProducers">
-                    <figure class="img" :style="{ backgroundImage: `url(${sponsor.img})` }"></figure>
+                    <a :href="sponsor.url" target="_blank">
+                        <figure class="img" :style="{ backgroundImage: `url(${sponsor.img})` }"></figure>
+                    </a>
                     <section class="info">
                         <figure class="name"><b>{{sponsor.name}}</b>{{sponsor.name2}}</figure>
-                        <figure class="url">{{sponsor.url}}</figure>
+                        <figure v-if="sponsor.url" class="url"><a :href="sponsor.url" target="_blank">{{sponsor.url}}</a></figure>
                     </section>
                     <figure class="bio">{{sponsor.bio}}</figure>
                 </section>
@@ -140,10 +161,12 @@
             <section class="sponsor-head">Applications & Community</section>
             <section class="sponsors">
                 <section class="sponsor" v-for="sponsor in dappsAndCommunity">
-                    <figure class="img" :style="{ backgroundImage: `url(${sponsor.img})` }"></figure>
+                    <a :href="sponsor.url" target="_blank">
+                        <figure class="img" :style="{ backgroundImage: `url(${sponsor.img})` }"></figure>
+                    </a>
                     <section class="info">
                         <figure class="name"><b>{{sponsor.name}}</b>{{sponsor.name2}}</figure>
-                        <figure class="url">{{sponsor.url}}</figure>
+                        <figure v-if="sponsor.url" class="url"><a :href="sponsor.url" target="_blank">{{sponsor.url}}</a></figure>
                     </section>
                     <figure class="bio">{{sponsor.bio}}</figure>
                 </section>
@@ -165,17 +188,16 @@
 
             <figure class="participate-head" style="margin-top:50px;">Everyone Else<figure class="line"></figure></figure>
             <figure class="text">
-                Applications are the single most important thing to a smart-contract centric blockchain like EOS.
-                Whether you're in EOS for the monetary gains or for the tech itself, dapps will make it happen and keep EOS alive and thriving.
+                Applications are the single most important thing to a smart-contract blockchain like EOS. Whether you're in EOS for the
+                monetary gains or for the tech itself, dapps will make it happen and keep EOS alive and thriving.
                 There are a few ways you can help and do your part.
             </figure>
 
             <section class="box blue-border" style="margin-top:50px;">
                 <h2>Help Raise The Pot!</h2>
                 <p>
-                    There's little that motivates people in this world more than money.
-                    We, the sponsors, have all put in as much as we can but the higher the pot gets the
-                    more developers we will attract and the more dapps will get made.
+                    There's little that motivates people more than money. We, the sponsors, have all put in as
+                    much as we can but the higher the pot gets the more developers we will attract, and more dapps will get made.
                 </p>
 
                 <figure class="button">Donate <b>EOS or ETH</b></figure>
@@ -187,8 +209,8 @@
                     <br><br>
 
                     All ETH will be converted to EOS as time goes by. You will see it leaving the address to exchanges,
-                    and then EOS will come back. We’re doing this because EOS will be needed to run applications on
-                    the mainnet and we prefer to give the winners EOS and not ETH.
+                    and then EOS will come back. We’re doing this because EOS will be needed to run applications on the
+                    mainnet and we prefer to give the winners EOS and not ETH.
                 </p>
             </section>
 
@@ -208,20 +230,26 @@
                     <b>Don’t stop there.</b>
                     <br><br>
 
-                    Write about this on Steem, Busy, Medium or any other blog platform you participate in.
-                    Tell your friends on Telegram. Post about it on Reddit. Help get the word out any way you can.
+                    Write about this on
+                    <span class="links">
+                        <a href="https://steemit.com/">Steemit</a>, <a href="https://busy.org/">Busy</a>,
+                    <a href="https://medium.com/">Medium</a> or any other blog platform you participate in.
+                    Tell your friends on
+                    <a href="https://telegram.org/">Telegram</a>. Post about it on
+                    <a href="https://www.reddit.com/">Reddit</a>. Help get the word out any way you can.
+                    </span>
                 </p>
             </section>
 
-            <section class="box">
-                <h2>Get Ready To Vote!</h2>
-                <p>
-                    There will be a voting period after the Hackathon closes and before the winner
-                    announcements. This wont be the final vote but it will have an impact on our decisions.
-                </p>
+            <!--<section class="box">-->
+                <!--<h2>Get Ready To Vote!</h2>-->
+                <!--<p>-->
+                    <!--There will be a voting period after the Hackathon closes and before the winner-->
+                    <!--announcements. This wont be the final vote but it will have an impact on our decisions.-->
+                <!--</p>-->
 
-                <figure class="button disabled"><b>View</b> the Projects</figure>
-            </section>
+                <!--<figure class="button disabled"><b>View</b> the Projects</figure>-->
+            <!--</section>-->
 
 
 
@@ -313,6 +341,12 @@
 </script>
 
 <style lang="scss">
+    .links {
+        a {
+            text-decoration: underline;
+        }
+    }
+
     .landing {
         max-width:840px;
         width:100%;
