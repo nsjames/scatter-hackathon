@@ -578,6 +578,10 @@
                 color:#505050;
                 font-weight: 800;
             }
+
+            @media (max-width:800px){
+                font-size:60px;
+            }
         }
 
         .text {
