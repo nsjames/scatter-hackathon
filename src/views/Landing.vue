@@ -11,15 +11,15 @@
                 <figure class="link" :class="{'active':activeMenu === 'participate'}" @click="scrollToRef('participate')">Participate</figure>
             </section>
 
-            <!--<section class="box large-pad">-->
-                <!--<h2 style="margin-top:0;">Hackathon Begins</h2>-->
-                <!--<figure class="os clock">-->
-                    <!--<span v-if="days > 0">{{days | twoDigit}} :</span>-->
-                    <!--<span>{{hours | twoDigit}} :</span>-->
-                    <!--<span>{{minutes | twoDigit}} :</span>-->
-                    <!--<span>{{seconds | twoDigit}}</span>-->
-                <!--</figure>-->
-            <!--</section>-->
+            <section class="box large-pad">
+                <h2 style="margin-top:0;">Mainnet Launches</h2>
+                <figure class="os clock">
+                    <span v-if="days > 0">{{days | twoDigit}} :</span>
+                    <span>{{hours | twoDigit}} :</span>
+                    <span>{{minutes | twoDigit}} :</span>
+                    <span>{{seconds | twoDigit}}</span>
+                </figure>
+            </section>
 
             <!--<section class="box blue-border">-->
                 <!--<h2>The Hackathon has started!</h2>-->
@@ -304,7 +304,8 @@
         created () { window.addEventListener('scroll', this.handleScroll); },
         destroyed () { window.removeEventListener('scroll', this.handleScroll); },
         mounted(){
-            this.date = Math.trunc(1525737600);
+            const d = new Date('6/3/2018');
+            this.date = Math.trunc(+d/1000);
             this.now = Math.trunc((new Date()).getTime() / 1000);
             this.diff = this.date - this.now;
             timer = setInterval(() => {
