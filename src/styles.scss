@@ -98,6 +98,14 @@ hr {
     b {
       font-weight: 800;
     }
+
+    &.eth {
+      font-size:24px;
+
+      @media (max-width:560px){
+        font-size:14px;
+      }
+    }
   }
 
   p {

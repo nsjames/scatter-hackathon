@@ -196,21 +196,27 @@
             <section class="box blue-border" style="margin-top:50px;">
                 <h2>Help Raise The Pot!</h2>
                 <p>
-                    There's little that motivates people more than money. We, the sponsors, have all put in as
-                    much as we can but the higher the pot gets the more developers we will attract, and more dapps will get made.
+                    There's little in life that motivates more than money. We, the sponsors, are all putting in as
+                    much as we can but the higher the pot gets the more developers this hackathon will attract, leading to more dapps getting made.
                 </p>
 
-                <figure class="button">Donate <b>EOS or ETH</b></figure>
+                <section class="box blue-border" style="margin-top:20px;">
+                    <h3><b>Send whatever you want to the hackathon Ethereum address</b></h3>
+                    <h4 class="eth os"><b>0xf1606542e795e18d92a749d27509ce54723499e3</b></h4>
+                    <figure style="margin-top:20px;">
+                        <img src="assets/img/qr.png"/>
+                    </figure>
+                </section>
 
                 <hr/>
 
                 <p>
-                    <b>A note about ETH</b>
+                    <b>A note about non EOS tokens and ETH</b>
                     <br><br>
 
-                    All ETH will be converted to EOS as time goes by. You will see it leaving the address to exchanges,
-                    and then EOS will come back. We’re doing this because EOS will be needed to run applications on the
-                    mainnet and we prefer to give the winners EOS and not ETH.
+                    All non EOS tokens and ETH will be converted to EOS as time goes by. You will see it leaving the address to exchanges,
+                    and then the equivalent amount of EOS will come back. We’re doing this because EOS will be needed to run applications on the
+                    mainnet and we prefer to give the winners EOS and nothing else.
                 </p>
             </section>
 
@@ -221,8 +227,8 @@
                     If you know any developers be sure to let them in on this opportunity.
                 </p>
 
-                <figure class="button">Share on <b>Twitter</b></figure>
-                <figure class="button short-top">Share on <b>Facebook</b></figure>
+                <figure @click="twitterShare()" class="button">Share on <b>Twitter</b></figure>
+                <figure @click="facebookShare()" class="button short-top">Share on <b>Facebook</b></figure>
 
                 <hr/>
 
@@ -269,6 +275,8 @@
     import blockProducers from '../blockProducers';
     import dappsAndCommunity from '../dappsAndCommunity';
     let timer = null;
+
+    const url = "https://hack-til-dawn.com/";
 
     export default {
         data(){ return {
@@ -320,6 +328,14 @@
             },
             scrollToRef(ref){
                 this.$refs[ref].scrollIntoView({ behavior: 'smooth' });
+            },
+            twitterShare(){
+                const text = `Check out this completely online #EOS hackathon!`;
+                window.open(`http://twitter.com/share?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`, '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
+            },
+            facebookShare(){
+                const text = `Check out this completely online EOS hackathon!`;
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${text}&hashtag=#EOS`, '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
             },
             ...mapActions([
 
