@@ -42,9 +42,10 @@
                 The EOS blockchain is an infant with no rattle. Its very life has been left in our hands by Gepetto.
                 We can’t let block.one down; it’s time to take up arms and fight for the blockchain that we all believe in.
                 <br><br>
-                Thus, The Hack Til Dawn Hackathon was born. We all know that in order for the EOS blockchain to go global,
-                it will need next-level, blow your mind dapps, and fast. To make sure that happens, an alliance has been formed between
-                Block Producer candidates, dapps, and community members temporarily to pool our resources to bring you incredible prizes and live events.
+                Thus, The Hack Til Dawn Hackathon was born. The community members, block producers and dapps that are helping sponsor this event
+                all still support the hackathon put together by block.one, but we want to offer
+                a similar experience to those that can't physically attend and participate. Hack Til Dawn is will be held online
+                and allow anyone from anywhere to take part and have a shot at the prizes.
             </figure>
 
             <hr/>
