@@ -11,15 +11,15 @@
                 <figure class="link" :class="{'active':activeMenu === 'participate'}" @click="scrollToRef('participate')">Participate</figure>
             </section>
 
-            <section class="box large-pad">
-                <h2 style="margin-top:0;">Mainnet Launches</h2>
-                <figure class="os clock">
-                    <span v-if="days > 0">{{days | twoDigit}} :</span>
-                    <span>{{hours | twoDigit}} :</span>
-                    <span>{{minutes | twoDigit}} :</span>
-                    <span>{{seconds | twoDigit}}</span>
-                </figure>
-            </section>
+            <!--<section class="box large-pad">-->
+                <!--<h2 style="margin-top:0;">Mainnet Launches</h2>-->
+                <!--<figure class="os clock">-->
+                    <!--<span v-if="days > 0">{{days | twoDigit}} :</span>-->
+                    <!--<span>{{hours | twoDigit}} :</span>-->
+                    <!--<span>{{minutes | twoDigit}} :</span>-->
+                    <!--<span>{{seconds | twoDigit}}</span>-->
+                <!--</figure>-->
+            <!--</section>-->
 
             <!--<section class="box blue-border">-->
                 <!--<h2>The Hackathon has started!</h2>-->
