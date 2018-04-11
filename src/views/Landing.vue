@@ -42,9 +42,9 @@
                 The EOS blockchain is an infant with no rattle. Its very life has been left in our hands by Gepetto.
                 We can’t let block.one down; it’s time to take up arms and fight for the blockchain that we all believe in.
                 <br><br>
-                Thus, The Scatter Hackathon was born. We at Scatter knew that in order for the EOS blockchain to go global,
-                it would need next-level, blow your mind dapps, and fast. To make sure that happens, we have gotten together with prominent
-                Block Producer candidates and pooled our resources to bring you incredible prizes and live events.
+                Thus, The Hack Til Dawn Hackathon was born. We all know that in order for the EOS blockchain to go global,
+                it will need next-level, blow your mind dapps, and fast. To make sure that happens, an alliance has been formed between
+                Block Producer candidates, dapps, and community members temporarily to pool our resources to bring you incredible prizes and live events.
             </figure>
 
             <hr/>
@@ -183,7 +183,7 @@
                 EOS account to use to push contracts and login details to push docker images.
                 <br><br>
                 Every project will get a subdomain matching their project name. For instance
-                <u>hello-world.scatter-hackathon.com</u> will be the address for a Hello World project.
+                <u>hello-world.hack-til-dawn.com</u> will be the address for a Hello World project.
             </figure>
 
             <figure class="participate-head" style="margin-top:50px;">Everyone Else<figure class="line"></figure></figure>
