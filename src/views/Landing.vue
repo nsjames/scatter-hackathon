@@ -416,6 +416,11 @@
                     background-size:cover;
                     background-position:center;
                     float:left;
+
+                    @media (max-width:800px) {
+                        width:100%;
+                        height:200px;
+                    }
                 }
 
                 .info {
@@ -424,7 +429,9 @@
                     width:calc(100% - 230px);
 
                     @media (max-width:800px) {
-                        height:150px;
+                        width:100%;
+                        overflow:visible;
+                        margin:10px 0 0;
                     }
 
                     .name {
