@@ -230,6 +230,7 @@
 
                 <figure @click="twitterShare()" class="button">Share on <b>Twitter</b></figure>
                 <figure @click="facebookShare()" class="button short-top">Share on <b>Facebook</b></figure>
+                <a href="https://t.me/HackTilDawn"><figure class="button short-top">Join our <b>Telegram</b></figure></a>
 
                 <hr/>
 
