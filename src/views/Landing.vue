@@ -44,7 +44,7 @@
                 <br><br>
                 Thus, The Hack Til Dawn Hackathon was born. The community members, block producers and dapps that are helping sponsor this event
                 all still support the hackathon put together by block.one, but we want to offer
-                a similar experience to those that can't physically attend and participate. Hack Til Dawn is will be held online
+                a similar experience to those that can't physically attend and participate. Hack Til Dawn will be held online
                 and allow anyone from anywhere to take part and have a shot at the prizes.
             </figure>
 
