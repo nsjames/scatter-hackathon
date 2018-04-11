@@ -27,12 +27,12 @@ export default [
         `,
         hosting:true,
     },{
-        name:'EOS',
-        name2:' Sweden',
+        name:'EOSSw',
+        name2:' Eden',
         img:'/assets/img/sponsors/eossweden.jpg',
         url:'',
         bio:`
-            EOS Sweden is a block producer focusing on community outreach, developer training, and green infrastructure.
+            EOS Sw Eden is a block producer focusing on community outreach, developer training, and green infrastructure.
         `,
         hosting:true,
     },{
