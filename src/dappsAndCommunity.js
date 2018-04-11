@@ -34,6 +34,6 @@ export default [
         name2:' W.',
         img:'/assets/img/sponsors/jeffw.jpg',
         url:'',
-        bio:'The blockchain is about decentralization, and that means that the events should be decentralized as well. This hackathon is a community effort between some of the existing EOS dapps, users in the community and well respected Block Producer candidates.'
+        bio:'Jeff has been a community supporter since the early days, he likes long walks to the bank and potatoes. Most importantly though, he really really likes EOS.'
     }
 ];
