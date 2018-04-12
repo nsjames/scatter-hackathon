@@ -23,7 +23,7 @@ export default [
         img:'/assets/img/sponsors/eosnation.jpg',
         url:'https://eosnation.io/',
         bio:`
-            EOS Nation is a group of dedicated, passionate and ambitious individuals aiming to contribute positively to the preservation of the EOS platform and its community.
+            EOS Nation is dedicated to fostering the EOS platform through reliable and efficient block production and community engagement. They believe in a future where life, liberty, and property is protected through decentralization.
         `,
         hosting:true,
     },{
