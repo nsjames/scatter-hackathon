@@ -278,14 +278,23 @@
     import dappsAndCommunity from '../dappsAndCommunity';
     let timer = null;
 
+
+    const shuffle = a => {
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
     const url = "https://hack-til-dawn.com/";
 
     export default {
         data(){ return {
             floatMenu:false,
             activeMenu:'',
-            blockProducers,
-            dappsAndCommunity,
+            blockProducers:shuffle(blockProducers),
+            dappsAndCommunity:shuffle(dappsAndCommunity),
             liveEvents,
 
             now: Math.trunc((new Date()).getTime() / 1000),

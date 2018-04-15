@@ -35,5 +35,13 @@ export default [
         img:'/assets/img/sponsors/jeffw.jpg',
         url:'',
         bio:'Jeff has been a community supporter since the early days, he likes long walks to the bank and potatoes. Most importantly though, he really really likes EOS.'
+    },{
+        name:'Carmel',
+        name2:'',
+        img:'/assets/img/sponsors/carmel.jpg',
+        url:'https://www.carmel.io/',
+        bio:`
+            The Decentralized Open Source Tech Education Platform that helps aspiring and seasoned Software Developers grow their skill set and track their growth through tokenized peer challenges.
+        `
     }
 ];

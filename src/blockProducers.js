@@ -64,6 +64,76 @@ export default [
         `,
         hosting:true,
     },
+    {
+        name:'Blockgenic',
+        name2:' ',
+        img:'/assets/img/sponsors/blockgenic.jpg',
+        url:'http://www.blockgenic.io/',
+        bio:`
+            We are a block producer candidate based out of the Pacific North West, headquartered in Seattle. Our group of technology entrepreneurs and investors believe in the power of EOS and blockchain technology to make a positive long term impact around the world.  
+        `,
+        hosting:true,
+    },
+    {
+        name:'EOS',
+        name2:' Canada',
+        img:'/assets/img/sponsors/eoscanada.jpg',
+        url:'http://www.blockgenic.io/',
+        bio:`
+            We are a block producer candidate based out of the Pacific North West, headquartered in Seattle. Our group of technology entrepreneurs and investors believe in the power of EOS and blockchain technology to make a positive long term impact around the world.  
+        `,
+        hosting:true,
+    },
+    {
+        name:'EOS',
+        name2:'YS',
+        img:'/assets/img/sponsors/eosys.jpg',
+        url:'http://eosys.io/',
+        bio:`
+            EOSYS is the First EOSIO Block Producer Candidate from Korea. EOSYS also created EOSscan.io in June of 2017, one of the most pivotal applications surrounding EOSIO.  
+        `,
+        hosting:true,
+    },
+    {
+        name:'EOS',
+        name2:'Cafe',
+        img:'/assets/img/sponsors/eoscafe.jpg',
+        url:'http://eos.cafe/',
+        bio:`
+            EOS Cafe is a community of EOS enthusiasts. Our continuing mission is to build collaboration spaces online, on blockchain, and in the real world.
+        `,
+        hosting:true,
+    },
+    {
+        name:'eos',
+        name2:'Dac',
+        img:'/assets/img/sponsors/eosdac.jpg',
+        url:'https://eosdac.io/',
+        bio:`
+            eosDac is a decentralized and community-owned EOSIO Block Producer. The DAC is controlled by its token holders and the board members they vote to run its operations.
+        `,
+        hosting:true,
+    },
+    {
+        name:'MEET',
+        name2:'.ONE',
+        img:'/assets/img/sponsors/meetone.jpg',
+        url:'https://meet.one/',
+        bio:`
+            MEET.ONE is a portal to EOS ecology. MEET is a kind of EOS ecological gateway allowing you to take part in EOS ecological development.
+        `,
+        hosting:true,
+    },
+    {
+        name:'EOS',
+        name2:' Detroit',
+        img:'/assets/img/sponsors/eosdetroit.jpg',
+        url:'https://eosdetroit.com',
+        bio:`
+            EOS Detroit is a community organization with the goal of generating positive human outcomes through the proliferation of the EOS network.
+        `,
+        hosting:true,
+    },
     // {
     //     name:'EOS',
     //     name2:' Phoenix',
