@@ -78,7 +78,7 @@ export default [
         name:'EOS',
         name2:' Canada',
         img:'/assets/img/sponsors/eoscanada.jpg',
-        url:'http://www.blockgenic.io',
+        url:'https://www.eoscanada.com',
         bio:`
             EOS Canada is a leading Block Producer candidate who believes that EOS.IO will fundamentally change our economic and social systems and as such is deeply committed to contribute to the growth of the ecosystem.  
         `,
