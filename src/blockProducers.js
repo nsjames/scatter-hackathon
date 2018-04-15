@@ -80,7 +80,7 @@ export default [
         img:'/assets/img/sponsors/eoscanada.jpg',
         url:'http://www.blockgenic.io',
         bio:`
-            We are a block producer candidate based out of the Pacific North West, headquartered in Seattle. Our group of technology entrepreneurs and investors believe in the power of EOS and blockchain technology to make a positive long term impact around the world.  
+            EOS Canada is a leading Block Producer candidate who believes that EOS.IO will fundamentally change our economic and social systems and as such is deeply committed to contribute to the growth of the ecosystem.  
         `,
         hosting:true,
     },
