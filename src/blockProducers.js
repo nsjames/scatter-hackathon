@@ -140,7 +140,7 @@ export default [
         img:'/assets/img/sponsors/oraclechain.jpg',
         url:'https://oraclechain.io',
         bio:`
-            OracleChain is based on the EOS blockchain technology and provides both real-world data and cross-chain data to the blockchain. We also accomplished the effective connection between data service providers and data consumers on the blockchain.
+            As the world’s first application built on the EOS ecosphere, OracleChain is based on the EOS blockchain technology and provides both real-world and cross-chain data to the blockchain. We hope to cooperate with global EOS developers and community participants to build EOS Ecosystem.
         `,
         hosting:true,
     },
