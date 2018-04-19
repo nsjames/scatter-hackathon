@@ -134,6 +134,16 @@ export default [
         `,
         hosting:true,
     },
+    {
+        name:'Oracle',
+        name2:'Chain',
+        img:'/assets/img/sponsors/oraclechain.jpg',
+        url:'https://oraclechain.io',
+        bio:`
+            OracleChain is based on the EOS blockchain technology and provides both real-world data and cross-chain data to the blockchain. We also accomplished the effective connection between data service providers and data consumers on the blockchain.
+        `,
+        hosting:true,
+    },
     // {
     //     name:'EOS',
     //     name2:' Phoenix',
