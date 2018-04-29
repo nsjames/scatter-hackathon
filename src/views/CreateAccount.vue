@@ -31,8 +31,8 @@
                     No more password inputs, not more basic information inputs at all.
                 </p>
                 <hr/>
-                <h3>{{teamMember.name}}</h3>
-                <h1 style="margin-top:10px;">{{teamMember.publicKey}}</h1>
+                <h3>{{user.name}}</h3>
+                <h1 style="margin-top:10px;">{{user.publicKey}}</h1>
                 <div style="height:20px;"></div>
             </section>
 
@@ -41,49 +41,62 @@
             <!-- TEAM MEMBER TYPE -->
             <section class="box">
                 <h2>What are you?</h2>
-                <p>Even if you are a jack of all trades try to pick something you excel at more than the rest.</p>
+                <p>
+                    You can not change this later. Choose wisely.
+                </p>
                 <div style="height:40px"></div>
-                <section class="type-box" @click="changeType(tmt.HACKER)" :class="{'blue-back':teamMember.type === tmt.HACKER}">
-                    <h1>Hacker</h1>
-                    <p>The Developer</p>
+
+                <section class="type-box" @click="changeType(tmt.VOTER)" :class="{'blue-back':user.type === tmt.VOTER}">
+                    <figure class="type">Voter</figure>
+                    <figure class="text">You may only vote on projects</figure>
                 </section>
 
-                <section class="type-box" @click="changeType(tmt.DOODLER)" :class="{'blue-back':teamMember.type === tmt.DOODLER}">
-                    <h1>Doodler</h1>
-                    <p>The Designer</p>
+                <section class="type-box" @click="changeType(tmt.HACKER)" :class="{'blue-back':user.type === tmt.HACKER}">
+                    <figure class="type">Hacker</figure>
+                    <figure class="text">The Developer</figure>
                 </section>
 
-                <section class="type-box" @click="changeType(tmt.BIGMOUTH)" :class="{'blue-back':teamMember.type === tmt.BIGMOUTH}">
-                    <h1>Big Mouth</h1>
-                    <p>The Marketer</p>
+                <section class="type-box" @click="changeType(tmt.DOODLER)" :class="{'blue-back':user.type === tmt.DOODLER}">
+                    <figure class="type">Doodler</figure>
+                    <figure class="text">The Designer</figure>
+                </section>
+
+                <section class="type-box" @click="changeType(tmt.BIGMOUTH)" :class="{'blue-back':user.type === tmt.BIGMOUTH}">
+                    <figure class="type">Big Mouth</figure>
+                    <figure class="text">The Marketer</figure>
                 </section>
             </section>
 
 
 
             <!-- BIO -->
-            <section class="box">
+            <section class="box" v-if="user.type !== tmt.VOTER">
                 <h2>Who are you?</h2>
                 <p>Give a brief description of who you are and what you do. Keep it light and fun.</p>
                 <div style="height:40px"></div>
-                <textarea class="description" v-model="teamMember.bio"></textarea>
-                <figure class="box-footer">{{teamMember.bio.length}}/500 characters</figure>
+                <textarea class="description" v-model="user.bio"></textarea>
+                <figure class="box-footer">{{user.bio.length}}/500 characters</figure>
             </section>
 
 
             <!-- SOURCES -->
-            <section class="box">
+            <section class="box" v-if="user.type !== tmt.VOTER">
                 <h2>Got Sources?</h2>
                 <p>Add some kind of source for yourself.<br> It can be your portfolio, github, twitter, a telegram link, whatever but you must have at least one.</p>
                 <div style="height:40px"></div>
                 <section class="links">
-                    <input v-for="(link, index) in teamMember.links" class="link" placeholder="http://www..." v-model="link.url" />
+                    <input v-for="(link, index) in user.links" class="link" placeholder="http://www..." v-model="link.url" />
                 </section>
-                <figure class="box-footer" style="cursor:pointer;" @click="addSource()" v-if="teamMember.links.length < 5"><u>add another</u></figure>
+                <figure class="box-footer" style="cursor:pointer;" @click="addSource()" v-if="user.links.length < 5"><u>add another</u></figure>
+            </section>
+
+            <section class="recaptcha">
+                <!--<div class="g-recaptcha" data-sitekey="" data-callback="recatch"></div>-->
+                <recaptcha @verify="recatch" sitekey="6LcCMFYUAAAAANjC_Xi2UwLFDIIyvxOKeBC9hZe5"></recaptcha>
             </section>
 
             <section class="box blank">
-                <figure class="button" :class="{'disabled':!identity}" @click="register()"><b>Sign</b> me up!</figure>
+                <figure class="button" :class="{'disabled':!identity || !recaptcha}" @click="register()"><b>Sign</b> me up!</figure>
             </section>
 
             <section class="box" v-if="error">
@@ -107,9 +120,13 @@
     import {UserTypes} from '../models/User'
     import Link from '../models/Link'
 
+    import ecc from 'eosjs-ecc'
+    import ContractService from '../services/ContractService';
+
     export default {
         data(){ return {
-            teamMember:new User(),
+            recaptcha:false,
+            user:new User(),
             tmt:UserTypes,
             error:null
         }},
@@ -120,19 +137,22 @@
             ])
         },
         mounted(){
-            this.teamMember.links = [new Link()];
-            this.teamMember.type = UserTypes.HACKER;
+            this.user.links = [new Link()];
+            this.user.type = UserTypes.VOTER;
             setTimeout(() => {
                 if(this.identity) {
-                    this.teamMember.name = this.identity.name;
-                    this.teamMember.publicKey = this.identity.publicKey;
+                    this.user.name = this.identity.name;
+                    this.user.key = this.identity.publicKey;
                 }
             }, 200);
         },
 
         methods: {
-            addSource(){ this.teamMember.links.push(new Link()) },
-            changeType(type){ this.teamMember.type = type; },
+            recatch(args){
+                this.recaptcha = ecc.sha256(args);
+            },
+            addSource(){ this.user.links.push(new Link()) },
+            changeType(type){ this.user.type = type; },
             authenticateWithScatter(){
                 this.scatter.getIdentity([]).then(identity => {
                     if(identity) this[Actions.SET_IDENTITY](identity);
@@ -142,36 +162,60 @@
                 this.error = null;
 
                 if(!this.scatter || !this.identity) return false;
+                if(!this.recaptcha) return false;
 
-                if(this.teamMember.bio.length < 100) {
+                if(this.user.type !== UserTypes.VOTER && this.user.bio.length < 100) {
                     this.error = 'Your bio must be at least 100 characters long';
                     return false;
                 }
 
-                this.teamMember.links = this.teamMember.links.filter(link => link.url.length);
-                if(!this.teamMember.links.length){
-                    this.teamMember.links.push(new Link());
+                this.user.links = this.user.links.filter(link => link.url.length);
+                if(this.user.type !== UserTypes.VOTER && !this.user.links.length){
+                    this.user.links.push(new Link());
                     this.error = 'You must have at least one source';
                     return false;
                 }
 
+                ContractService.getSignature(this.scatter, this.identity.publicKey).then(async sig => {
+                    if(!sig){
+                        this.error = 'Could not get signature';
+                        return false;
+                    }
+
+                    const created = await ContractService.createUser(this.user, sig, this.recaptcha).catch(error => {
+                        this.error = JSON.parse(error).error.details[0].message.replace('condition: assertion failed: ', '');
+                    });
+
+                    const user = await ContractService.getUserFromPublicKey(this.identity.publicKey).catch(() => {});
+                    if(!user){
+                        this.error = 'There seems to have been a problem creating this user. Try again.'
+                        return false;
+                    }
+
+                    this[Actions.SET_USER](user);
+                    if(this.user.type === UserTypes.VOTER) this.$router.push({name:RouteNames.TEAMS});
+                    else this.$router.push({name:RouteNames.TEAMS});
+                });
+
+
 
             },
             ...mapActions([
-                Actions.SET_IDENTITY
+                Actions.SET_IDENTITY,
+                Actions.SET_USER,
             ])
         },
         watch:{
-            teamMember:{
+            user:{
                 handler(a,b){
-                    if(this.teamMember.bio.length > 500) this.teamMember.bio = this.teamMember.bio.substr(0,500);
+                    if(this.user.bio.length > 500) this.user.bio = this.user.bio.substr(0,500);
                 },
                 deep:true
             },
             identity(){
                 if(this.identity) {
-                    this.teamMember.name = this.identity.name;
-                    this.teamMember.publicKey = this.identity.publicKey;
+                    this.user.name = this.identity.name;
+                    this.user.key = this.identity.publicKey;
                 }
             }
         }
@@ -179,6 +223,13 @@
 </script>
 
 <style lang="scss">
+    .recaptcha {
+        text-align:center;
+        margin-bottom:20px;
+        * {
+            display: inline-block;
+        }
+    }
     .search-bar {
         width:100%;
         border-bottom:1px solid #dbdbdb;
@@ -207,13 +258,13 @@
         font-family: 'Open Sans', sans-serif;
         cursor: pointer;
 
-        h1 {
+        .type {
             font-size: 24px;
             font-weight: 800;
             line-height: 12px;
         }
 
-        p {
+        .text {
             font-size:12px;
             color:#478af7;
             margin-top:10px;
@@ -224,7 +275,7 @@
             background: #478af7;
             color: #fff;
 
-            p { color:#fff; }
+            .text { color:#fff; }
         }
 
         &:last-child {
@@ -268,14 +319,5 @@
                 margin-bottom:0;
             }
         }
-    }
-
-    .box-footer {
-        font-size:13px;
-        color:#7d7d7d;
-        text-align:right;
-        width:100%;
-        font-weight:500;
-        margin-top:5px;
     }
 </style>

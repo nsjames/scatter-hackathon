@@ -1,17 +1,32 @@
 import Landing from '../views/Landing.vue'
 import Teams from '../views/Teams.vue'
-import CreateDevAccount from '../views/CreateDevAccount.vue'
+import Team from '../views/Team.vue'
+import Ideas from '../views/Ideas.vue'
+import CreateAccount from '../views/CreateAccount.vue'
+import CreateTeam from '../views/CreateTeam.vue'
+import Dashboard from '../views/Dashboard.vue'
+import RulesAndFaq from '../views/RulesAndFaq.vue'
 
 export const RouteNames = {
     INDEX:'index',
     TEAMS:'teams',
-    CREATE_DEV:'create-dev-account',
+    TEAM:'team/:name',
+    IDEAS:'ideas',
+    CREATE_ACCOUNT:'create-account',
+    CREATE_TEAM:'create-team',
+    DASHBOARD:'dashboard',
+    RULES_AND_FAQ:'rules-and-faq'
 };
 
 const RouteViews = {
     [RouteNames.INDEX]:Landing,
     [RouteNames.TEAMS]:Teams,
-    [RouteNames.CREATE_DEV]:CreateDevAccount,
+    [RouteNames.TEAM]:Team,
+    [RouteNames.IDEAS]:Ideas,
+    [RouteNames.CREATE_ACCOUNT]:CreateAccount,
+    [RouteNames.CREATE_TEAM]:CreateTeam,
+    [RouteNames.DASHBOARD]:Dashboard,
+    [RouteNames.RULES_AND_FAQ]:RulesAndFaq,
 };
 
 export class Routing {

@@ -86,7 +86,9 @@ describe('Hack Til Dawn EOSIO Contract', () => {
                 identity.publicKey,
                 identity.name,
                 forcedUserType ? forcedUserType : userType()
-            ), identity.sign(signHash));
+            ), identity.sign(signHash),
+            ecc.sha256('hello'+Math.round(Math.random() * 100000 + 1))
+        );
         return {identity, created};
     };
 

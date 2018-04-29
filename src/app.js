@@ -6,6 +6,9 @@ import {RouteNames} from './vue/Routing'
 import ViewBase from './views/Base.vue'
 import Hero from './components/Hero.vue'
 import FloatingMenu from './components/FloatingMenu.vue'
+import Join from './components/Join.vue'
+import Donate from './components/Donate.vue'
+import VueRecaptcha from 'vue-recaptcha';
 
 
 import ecc from 'eosjs-ecc'
@@ -21,6 +24,9 @@ class App {
             {tag:'view-base', vue:ViewBase},
             {tag:'hero', vue:Hero},
             {tag:'floating-menu', vue:FloatingMenu},
+            {tag:'recaptcha', vue:VueRecaptcha},
+            {tag:'join', vue:Join},
+            {tag:'donate', vue:Donate},
         ];
 
         const middleware = (to, next, store) => {
@@ -33,34 +39,23 @@ class App {
                 window.scatter.requireVersion(3.0);
                 store.dispatch(Actions.SET_SCATTER, window.scatter);
                 store.dispatch(Actions.SET_IDENTITY, window.scatter.identity);
+
+                ContractService.setApp(process.env.APP_ACC);
+                ContractService.setSignProvider(signargs => {
+                    return signargs.sign(signargs.buf, process.env.APP_KEY)
+                });
+
+
+
+                // window.scatter.getIdentity();
+                // const key = 'EOS8PZGdkgrN6Wgrh3ZPdeRRieAQGFR9SstCana61s7pVrHcp74bh';
+                // const key = window.scatter.identity.publicKey;
+                // window.scatter.requestArbitrarySignature(key, '3aad9fc133fc1f53e8f233a235f040e7e535d733f28970eebac3168a78507016', 'Please sign this hash to verify authentication', true).then(res => {
+                //     console.log('res',res);
+                //     console.log('res',res.toString());
+                // })
                 window.scatter = null;
 
-                console.log('namekey', murmur.v2('hello'));
-
-                // const eos = Eos.Localnet({httpEndpoint:'http://192.168.56.101:8888', keyProvider:'5KjbZQLH3EAfgXF3jejYM2WZjzJCUQH7NEkT1mVcBy2xoFdSWro'});
-                const getMemberFromName = async name => {
-                    const uuid = murmur.v2(name);
-                    const nameKey = await eos.getTableRows({
-                        json:true,
-                        code:'hackathon',
-                        scope:'hackathon',
-                        table:'membernames',
-                        lower_bound:uuid,
-                        upper_bound:uuid+1
-                    }).then(res => res.rows[0]);
-                    return eos.getTableRows({
-                        json:true,
-                        code:'hackathon',
-                        scope:'hackathon',
-                        table:'members',
-                        lower_bound:nameKey.keyid,
-                        upper_bound:nameKey.keyid+1
-                    }).then(res => res.rows[0])
-                };
-
-                getMemberFromName('hello').then(x => {
-                    console.log('xc', x);
-                })
 
 
 

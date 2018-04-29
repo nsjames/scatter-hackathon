@@ -12,6 +12,7 @@ export default class Team {
         this.member_count = members.length;
         this.tags = tags;
         this.links = links;
+        this.ideaid = 0;
 
         // Merged locally only.
         this.users = [];

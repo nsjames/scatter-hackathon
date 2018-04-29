@@ -82,6 +82,12 @@ export default class ContractService {
         return read('proof').then(res => res.rows[0].hash);
     }
 
+    static async getSignature(scatter, publicKey){
+        const signHash = await ContractService.getSignHash();
+        return await scatter.requestArbitrarySignature(publicKey, signHash,'You must sign this hash to prove your ownership of this identity', true)
+            .catch(() => null);
+    }
+
     static async getTeams(start = 0, limit = 20){           return this.getRows('teams', Team, start, limit).then(rowsOnly); }
     static async getUsers(start = 0, limit = 20){           return this.getRows('users', User, start, limit).then(rowsOnly); }
     static async getIdeas(start = 0, limit = 20){           return this.getRows('ideas', Idea, start, limit).then(rowsOnly); }
@@ -96,6 +102,16 @@ export default class ContractService {
         return read(table, murmur.v2(name),1)
             .then(res => res.rows.length ? res.rows[0].keyid : null)
             .catch(() => null)
+    }
+
+    static async getUserFromPublicKey(publicKey){
+        const uuid = murmur.v2(publicKey);
+        return read('users',uuid,1).then(res => firstOnly(format(res, User)));
+    }
+
+    static async getTeamFromPublicKey(publicKey){
+        const uuid = murmur.v2(publicKey);
+        return this.getTeam('', uuid);
     }
 
     static async getUser(name, uuid = null){
@@ -133,10 +149,24 @@ export default class ContractService {
     }
 
     // Gets sub objects as well
+    static async getTeamsForMember(userid){
+        return read('memberteams',0,1,userid).then(async res => {
+            let teams = [];
+            if(res.rows.length){
+                res.rows[0].teamids.map(async teamid => {
+                    const team = await this.getTeam('', teamid);
+                    if(team) teams.push(team);
+                });
+            }
+            return teams;
+        });
+    }
+
+    // Gets sub objects as well
     static async getProject(name, teamuuid = null){
         const pkeyUUID = teamuuid ? teamuuid : await this.getUUIDFromName('projnames', name);
         if(pkeyUUID === null) return null;
-        return read('projects',teamUUID,1).then(async res => {
+        return read('projects',pkeyUUID,1).then(async res => {
             const project = firstOnly(format(res, Project));
             if(project) project.team = await this.getTeam(project.teamid);
             return project;
@@ -147,7 +177,7 @@ export default class ContractService {
     static async getIdea(uuid){
         return read('ideas',uuid,1).then(async res => {
             const idea = firstOnly(format(res, Idea));
-            if(idea) await Promise.all(team.teamids.map(async teamid => {
+            if(idea) await Promise.all(idea.teamids.map(async teamid => {
                 const user = await this.getTeam('', teamid).catch(() => null);
                 if(user) idea.teams.push(user);
                 return teamid;
@@ -156,12 +186,19 @@ export default class ContractService {
         });
     }
 
+    static async getDonationsCount(uuid){
+        return read('donations',uuid,1).then(async res => {
+            if(!res.rows.length) return 0;
+            return res.rows[0].trxs.length;
+        });
+    }
+
 
     /******************************************************/
     /******************     WRITE    **********************/
     /******************************************************/
 
-    static async createUser(user, sig){ return (await write()).user(user, user.key, sig, appauth()); }
+    static async createUser(user, sig, recaptcha){ return (await write()).user(user, user.key, sig, recaptcha, appauth()); }
     static async updateUser(user, sig){ return (await write()).userupdate(user, sig, appauth()); }
     static async touchUser(user, sig){ return (await write()).usertouch(user.key, sig, appauth()); }
     static async createIdea(idea, user, sig){ return (await write()).idea(idea.serialize(), user.key, sig, appauth()); }
@@ -176,6 +213,7 @@ export default class ContractService {
     static async createProject(project, sig){ return (await write()).project(project.serialize(), sig, appauth()); }
     static async updateProject(project, sig){ return (await write()).projectup(project.serialize(), sig, appauth()); }
     static async vote(vote, projectid, userid, sig){ return (await write()).vote(vote, projectid, userid, sig, appauth()); }
+    static async donation(user, trx, sig){ return (await write()).donation(user.keyid, trx, sig, appauth()); }
 
 
 

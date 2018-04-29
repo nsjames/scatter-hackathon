@@ -4,15 +4,19 @@
         <floating-menu></floating-menu>
         <section class="container landing">
 
-            <!--<section class="box large-pad">-->
-                <!--<h2 style="margin-top:0;">Mainnet Launches</h2>-->
-                <!--<figure class="os clock">-->
-                    <!--<span v-if="days > 0">{{days | twoDigit}} :</span>-->
-                    <!--<span>{{hours | twoDigit}} :</span>-->
-                    <!--<span>{{minutes | twoDigit}} :</span>-->
-                    <!--<span>{{seconds | twoDigit}}</span>-->
-                <!--</figure>-->
-            <!--</section>-->
+
+
+            <section class="box large-pad">
+                <h2 style="margin-top:0;">Time Til Hackathon Opens</h2>
+                <figure class="os clock">
+                    <span v-if="days > 0">{{days | twoDigit}} :</span>
+                    <span>{{hours | twoDigit}} :</span>
+                    <span>{{minutes | twoDigit}} :</span>
+                    <span>{{seconds | twoDigit}}</span>
+                </figure>
+            </section>
+
+            <join></join>
 
             <!--<section class="box blue-border">-->
                 <!--<h2>The Hackathon has started!</h2>-->
@@ -44,43 +48,38 @@
             <hr/>
             <h1>the <b>prizes</b> are awesome</h1>
             <figure class="text">
-                There will be 10 total winners, 1st place, 2nd place and 8 runner ups.
+                Not only will there be a monetary prize from the sponsors, but also from community donations.
+                It's impossible to know just how much you will take home. You'll notice there's a <b>Tool Only Dapp</b> category.
+                This is specifically for "Tool" style applications or libraries to promote the creation of EOS tooling.
             </figure>
-            <section class="box blue-border" style="margin-top:50px; padding-top:50px; padding-bottom:50px;">
-                <h3>The prizes will include</h3>
-                <h4>Lots of <b>EOS</b></h4><br>
-                <h4>Ledger <b>Nanos</b></h4><br>
-                <h4>Dapp <b>Promotion</b></h4><br>
-                <h4>EOS <b>Keychains</b></h4><br>
-                <h4>Hackathon <b>T-Shirts</b></h4><br>
-                <h4>And <b>More</b></h4><br>
+
+            <section class="prize-box blue-back" style="margin-top:30px;">
+                <section class="left">4 Grand Winners</section>
+                <section class="right">
+                    <figure class="prize">1/5th of the Pot</figure>
+                    <figure class="prize">EOS Keychain</figure>
+                    <figure class="prize">Promoted Dapp on <u>eosindex.io</u></figure>
+                </section>
             </section>
-            <!--<section class="prize-box blue-back" style="margin-top:30px;">-->
-                <!--<section class="left">1st Place</section>-->
-                <!--<section class="right">-->
-                    <!--<figure class="prize">Big bag 'o EOS</figure>-->
-                    <!--<figure class="prize">Ledger Nano S</figure>-->
-                    <!--<figure class="prize">EOS Keychain</figure>-->
-                    <!--<figure class="prize">Promoted Dapp on <u>eosindex.io</u></figure>-->
-                <!--</section>-->
-            <!--</section>-->
 
-            <!--<section class="prize-box">-->
-                <!--<section class="left">2nd Place</section>-->
-                <!--<section class="right">-->
-                    <!--<figure class="prize">Less big bag 'o EOS</figure>-->
-                    <!--<figure class="prize">Ledger Nano S</figure>-->
-                    <!--<figure class="prize">EOS Keychain</figure>-->
-                <!--</section>-->
-            <!--</section>-->
+            <section class="prize-box">
+                <section class="left">Tool Only Dapp</section>
+                <section class="right">
+                    <figure class="prize">1/5th of the Pot</figure>
+                    <figure class="prize">Ledger Nano S</figure>
+                    <figure class="prize">EOS Keychain</figure>
+                </section>
+            </section>
 
-            <!--<section class="prize-box">-->
-                <!--<section class="left">8 Runners Up</section>-->
-                <!--<section class="right">-->
-                    <!--<figure class="prize">EOS Keychain</figure>-->
-                    <!--<figure class="prize">Scatter Hackathon T-Shirt</figure>-->
-                <!--</section>-->
-            <!--</section>-->
+            <section class="prize-box">
+                <section class="left">3 Voter Winners</section>
+                <section class="right">
+                    <figure class="prize">Ledger Nano</figure>
+                    <figure class="prize">EOS Keychain</figure>
+                    <figure class="prize">Scatter Hackathon T-Shirt</figure>
+                </section>
+            </section>
+            <donate></donate>
 
 
             <hr/>
@@ -94,23 +93,24 @@
 
             <figure class="box-head" style="margin-top:30px;">Online Hackathon Dates</figure>
             <section class="box blue-border no-border-top" style="padding-top:50px; padding-bottom:50px;">
-                <h3>Get ready for it.</h3>
-                <h4>Late <b>May</b></h4>
+                <h3>Hackathon Open To Submissions</h3>
+                <h4><b>May 12th</b> to <b>May 24th</b></h4>
+
+                <hr/>
+
+                <h3>Community Voting Period</h3>
+                <h4><b>May 20th</b> to <b>May 24th</b></h4>
+
+                <hr/>
+
+                <h3>Sponsor Voting Period</h3>
+                <h4><b>May 25th</b> to <b>May 27th</b></h4>
+
+                <hr/>
+
+                <h3>Winner Announcement Ceremonies</h3>
+                <h4><b>May 28th</b></h4>
             </section>
-            <!--<section class="box blue-border no-border-top" style="padding-top:50px; padding-bottom:50px;">-->
-                <!--<h3>Hackathon Open To Submissions</h3>-->
-                <!--<h4><b>May 8th</b> to <b>May 15th</b></h4>-->
-
-                <!--<hr/>-->
-
-                <!--<h3>Voting Period</h3>-->
-                <!--<h4><b>May 16th</b> to <b>May 18th</b></h4>-->
-
-                <!--<hr/>-->
-
-                <!--<h3>Winner Announcement Ceremonies</h3>-->
-                <!--<h4><b>May 19th</b></h4>-->
-            <!--</section>-->
 
             <figure class="box-head" style="margin-top:20px;">Live Events</figure>
             <section class="box blue-border no-border-top" style="padding-top:50px; padding-bottom:50px;">
@@ -168,53 +168,15 @@
 
 
             <hr/>
-            <h1 ref="participate">want to <b>participate</b> too?</h1>
-            <figure class="participate-head">Developers<figure class="line"></figure></figure>
-            <figure class="text">
-                Once the Hackathon is open you will be able to upload contracts to a Hackathon EOS Node, and push applications to a Hackathon Server using Docker images.
-                <br><br>
-                To be able to push projects to the servers you will need to add your project to this website. Once you do you will get an
-                EOS account to use to push contracts and login details to push docker images.
-                <br><br>
-                Every project will get a subdomain matching their project name. For instance
-                <u>hello-world.hack-til-dawn.com</u> will be the address for a Hello World project.
-            </figure>
+            <h1 ref="participate">sharing is <b>caring</b></h1>
 
-            <figure class="participate-head" style="margin-top:50px;">Everyone Else<figure class="line"></figure></figure>
             <figure class="text">
                 Applications are the single most important thing to a smart-contract blockchain like EOS. Whether you're in EOS for the
                 monetary gains or for the tech itself, dapps will make it happen and keep EOS alive and thriving.
-                There are a few ways you can help and do your part.
+                Help get the word out about this hackathon so that more developers jump on board.
             </figure>
 
-            <section class="box blue-border" style="margin-top:50px;">
-                <h2>Help Raise The Pot!</h2>
-                <p>
-                    There's little in life that motivates more than money. We, the sponsors, are all putting in as
-                    much as we can but the higher the pot gets the more developers this hackathon will attract, leading to more dapps getting made.
-                </p>
-
-                <section class="box blue-border" style="margin-top:20px;">
-                    <h3><b>Send whatever you want to the hackathon Ethereum address</b></h3>
-                    <h4 class="eth os"><b>0xf1606542e795e18d92a749d27509ce54723499e3</b></h4>
-                    <figure style="margin-top:20px;">
-                        <img src="assets/img/qr.png"/>
-                    </figure>
-                </section>
-
-                <hr/>
-
-                <p>
-                    <b>A note about non EOS tokens and ETH</b>
-                    <br><br>
-
-                    All non EOS tokens and ETH will be converted to EOS as time goes by. You will see it leaving the address to exchanges,
-                    and then the equivalent amount of EOS will come back. We’re doing this because EOS will be needed to run applications on the
-                    mainnet and we prefer to give the winners EOS and nothing else.
-                </p>
-            </section>
-
-            <section class="box">
+            <section class="box" style="margin-top:50px;">
                 <h2>Share This Page!</h2>
                 <p>
                     In this day and age it takes a mob to get the word out about anything.
@@ -284,6 +246,7 @@
 
     export default {
         data(){ return {
+            routeNames:RouteNames,
             blockProducers:shuffle(blockProducers),
             dappsAndCommunity:shuffle(dappsAndCommunity),
             liveEvents,
@@ -304,7 +267,7 @@
             ])
         },
         mounted(){
-            const d = new Date('6/3/2018');
+            const d = new Date('5/12/2018');
             this.date = Math.trunc(+d/1000);
             this.now = Math.trunc((new Date()).getTime() / 1000);
             this.diff = this.date - this.now;
@@ -495,29 +458,6 @@
             }
         }
 
-        h1 {
-            text-align: center;
-            width:100%;
-            font-size:70px;
-            font-weight: 200;
-            color:#c4c4c4;
-            margin-top:-40px;
 
-            b {
-                color:#505050;
-                font-weight: 800;
-            }
-
-            @media (max-width:800px){
-                font-size:60px;
-            }
-        }
-
-        .text {
-            color:#505050;
-            font-size:20px;
-            margin-top:30px;
-            text-align: justify;
-        }
     }
 </style>

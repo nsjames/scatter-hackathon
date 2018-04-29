@@ -8,7 +8,9 @@ Vue.use(Vuex);
 
 const state = {
     scatter:null,
-    identity:null
+    identity:null,
+    user:null,
+    team:null
 };
 
 const getters = {

@@ -3,7 +3,10 @@
         <div ref="fmenu" class="floating-menu-placeholder" :class="{'active':floatMenu}"></div>
         <section class="floating-menu" :class="{'float':floatMenu}">
             <router-link :to="{name:routeNames.INDEX}" class="link">Info</router-link>
+            <router-link :to="{name:routeNames.IDEAS}" class="link">Ideas</router-link>
             <router-link :to="{name:routeNames.TEAMS}" class="link">Teams</router-link>
+            <router-link :to="{name:routeNames.RULES_AND_FAQ}" class="link">Rules & FAQ</router-link>
+            <router-link v-if="identity" :to="{name:routeNames.DASHBOARD}" class="link">Dashboard</router-link>
         </section>
     </section>
 </template>
@@ -20,24 +23,20 @@
         }},
         computed: {
             ...mapState([
-
+                'user',
+                'identity',
+                'team'
             ])
         },
         created () { window.addEventListener('scroll', this.handleScroll); },
         destroyed () { window.removeEventListener('scroll', this.handleScroll); },
+        mounted(){ setTimeout(() => this.handleScroll(), 50); },
         methods: {
             handleScroll(){
                 const scroll = window.scrollY;
                 this.floatMenu = !this.floatMenu
                     ?this.$refs.fmenu.offsetTop-20 < scroll
                     :this.$refs.fmenu.offsetTop+20 < scroll;
-
-//                const fromTop = window.innerHeight/2;
-//                if(scroll > this.$refs.about.offsetTop-fromTop && scroll < this.$refs.events.offsetTop-fromTop) this.activeMenu = 'about';
-//                else if(scroll > this.$refs.events.offsetTop-fromTop && scroll < this.$refs.sponsors.offsetTop-fromTop) this.activeMenu = 'events';
-//                else if(scroll > this.$refs.sponsors.offsetTop-fromTop && scroll < this.$refs.participate.offsetTop-fromTop) this.activeMenu = 'sponsors';
-//                else if(scroll > this.$refs.participate.offsetTop-fromTop) this.activeMenu = 'participate';
-//                else this.activeMenu = '';
             },
             ...mapActions([
 
@@ -92,7 +91,7 @@
                 margin:0;
             }
 
-            &:hover, &.active {
+            &:hover, &.router-link-exact-active {
                 color:#478af7;
             }
         }
