@@ -1,15 +1,8 @@
 <template>
     <section>
         <hero></hero>
-        <section class="landing">
-
-            <div ref="fmenu" class="floating-menu-placeholder" :class="{'active':floatMenu}"></div>
-            <section class="floating-menu" :class="{'float':floatMenu}">
-                <figure class="link" :class="{'active':activeMenu === 'about'}" @click="scrollToRef('about')">About</figure>
-                <figure class="link" :class="{'active':activeMenu === 'events'}" @click="scrollToRef('events')">Dates & Events</figure>
-                <figure class="link" :class="{'active':activeMenu === 'sponsors'}" @click="scrollToRef('sponsors')">Sponsors</figure>
-                <figure class="link" :class="{'active':activeMenu === 'participate'}" @click="scrollToRef('participate')">Participate</figure>
-            </section>
+        <floating-menu></floating-menu>
+        <section class="container landing">
 
             <!--<section class="box large-pad">-->
                 <!--<h2 style="margin-top:0;">Mainnet Launches</h2>-->
@@ -291,8 +284,6 @@
 
     export default {
         data(){ return {
-            floatMenu:false,
-            activeMenu:'',
             blockProducers:shuffle(blockProducers),
             dappsAndCommunity:shuffle(dappsAndCommunity),
             liveEvents,
@@ -312,8 +303,6 @@
                 'scatter'
             ])
         },
-        created () { window.addEventListener('scroll', this.handleScroll); },
-        destroyed () { window.removeEventListener('scroll', this.handleScroll); },
         mounted(){
             const d = new Date('6/3/2018');
             this.date = Math.trunc(+d/1000);
@@ -325,22 +314,6 @@
         },
 
         methods: {
-            handleScroll(){
-                const scroll = window.scrollY;
-                this.floatMenu = !this.floatMenu
-                    ?this.$refs.fmenu.offsetTop-20 < scroll
-                    :this.$refs.fmenu.offsetTop+20 < scroll;
-
-                const fromTop = window.innerHeight/2;
-                if(scroll > this.$refs.about.offsetTop-fromTop && scroll < this.$refs.events.offsetTop-fromTop) this.activeMenu = 'about';
-                else if(scroll > this.$refs.events.offsetTop-fromTop && scroll < this.$refs.sponsors.offsetTop-fromTop) this.activeMenu = 'events';
-                else if(scroll > this.$refs.sponsors.offsetTop-fromTop && scroll < this.$refs.participate.offsetTop-fromTop) this.activeMenu = 'sponsors';
-                else if(scroll > this.$refs.participate.offsetTop-fromTop) this.activeMenu = 'participate';
-                else this.activeMenu = '';
-            },
-            scrollToRef(ref){
-                this.$refs[ref].scrollIntoView({ behavior: 'smooth' });
-            },
             twitterShare(){
                 const text = `Check out this completely online #EOS hackathon!`;
                 window.open(`http://twitter.com/share?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`, '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
@@ -358,12 +331,12 @@
                 this.diff = this.date - this.now;
                 if(this.diff <= 0 || this.stop){
                     this.diff = 0;
-                    clearInterval(interval);
+                    clearInterval(timer);
                 }
             }
         },
         destroyed() {
-            clearInterval(interval);
+            clearInterval(timer);
         }
     }
 </script>
@@ -376,10 +349,6 @@
     }
 
     .landing {
-        max-width:840px;
-        width:100%;
-        margin:0 auto;
-        padding:0 20px;
 
         .participate-head {
             font-size:30px;
@@ -514,56 +483,7 @@
             }
         }
 
-        .floating-menu-placeholder {
-            height:0;
 
-            &.active {
-                height:140px;
-            }
-        }
-
-        .floating-menu {
-            height:40px;
-            line-height:40px;
-            padding:0 25px;
-            border-radius:4px;
-            border:1px solid #e5e5e5;
-            box-shadow:0 1px 2px rgba(0,0,0,0.05);
-            display:table;
-            margin:50px auto;
-            background:#fff;
-            transition: box-shadow 0.4s ease;
-            z-index:9999;
-
-            &.float {
-                position:fixed;
-                top:20px;
-                right:0;
-                left: 50%;
-                transform: translateX(-50%);
-                margin:0 auto;
-                box-shadow: 0 8px 10px rgba(0,0,0,0.04);
-            }
-
-            .link {
-                cursor: pointer;
-                font-size:11px;
-                font-weight:500;
-                font-family: 'Open Sans', sans-serif;
-                color:#cfcfcf;
-                display:inline-block;
-                margin-right:20px;
-                transition:all 0.2s ease;
-
-                &:last-child {
-                    margin:0;
-                }
-
-                &:hover, &.active {
-                    color:#478af7;
-                }
-            }
-        }
 
         .clock {
             font-size: 72px;

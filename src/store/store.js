@@ -7,7 +7,8 @@ import {actions} from './actions';
 Vue.use(Vuex);
 
 const state = {
-    scatter:null
+    scatter:null,
+    identity:null
 };
 
 const getters = {

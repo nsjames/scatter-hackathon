@@ -21,6 +21,13 @@ a {
   font-family: 'Open Sans', sans-serif;
 }
 
+.container {
+  max-width:840px;
+  width:100%;
+  margin:0 auto;
+  padding:0 20px;
+}
+
 hr {
   border:0;
   outline:0;
@@ -158,6 +165,13 @@ hr {
       color:#fff;
     }
   }
+
+  &.blank {
+    padding:0;
+    border:0;
+
+    .button { margin-top:0; }
+  }
 }
 
 .prize-box {
@@ -221,3 +235,32 @@ hr {
   }
 
 }
+
+
+
+.tags {
+  width:100%;
+  overflow: hidden;
+
+  .tag-head {
+    font-size:11px;
+    color:#505050;
+    font-weight:800;
+    margin-bottom:10px;
+    width:100%;
+    clear:both;
+  }
+
+  .tag {
+    font-weight:bold;
+    font-size:11px;
+    color:#fff;
+    background:#478af7;
+    padding:6px 10px;
+    margin-bottom:10px;
+    margin-right:10px;
+    float:left;
+    border-radius:4px;
+  }
+}
+
