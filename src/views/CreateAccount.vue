@@ -82,7 +82,7 @@
             <!-- SOURCES -->
             <section class="box" v-if="user.type !== tmt.VOTER">
                 <h2>Got Sources?</h2>
-                <p>Add some kind of source for yourself.<br> It can be your portfolio, github, twitter, a telegram link, whatever but you must have at least one.</p>
+                <p>Add some kind of source for yourself.<br> It can be your portfolio, github, twitter, a telegram link, or anything else.</p>
                 <div style="height:40px"></div>
                 <section class="links">
                     <input v-for="(link, index) in user.links" class="link" placeholder="http://www..." v-model="link.url" />
@@ -169,12 +169,12 @@
                     return false;
                 }
 
-                this.user.links = this.user.links.filter(link => link.url.length);
-                if(this.user.type !== UserTypes.VOTER && !this.user.links.length){
-                    this.user.links.push(new Link());
-                    this.error = 'You must have at least one source';
-                    return false;
-                }
+//                this.user.links = this.user.links.filter(link => link.url.length);
+//                if(this.user.type !== UserTypes.VOTER && !this.user.links.length){
+//                    this.user.links.push(new Link());
+//                    this.error = 'You must have at least one source';
+//                    return false;
+//                }
 
                 ContractService.getSignature(this.scatter, this.identity.publicKey).then(async sig => {
                     if(!sig){

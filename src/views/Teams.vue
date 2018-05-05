@@ -11,7 +11,7 @@
                 team or request to join an existing one.
             </figure>
 
-            <section class="box" style="margin-top:50px;" v-if="user && !team">
+            <section class="box" style="margin-top:50px;" v-if="user && !team && user.type !== userTypes.VOTER">
                 <h2>Can't find a team?</h2>
                 <p>
                     You can always create one, however you can only own 1 team. The teams are not deletable however you can change them
@@ -19,9 +19,9 @@
                 </p>
 
                 <router-link :to="{name:routeNames.CREATE_TEAM}" class="button">Create a <b>Team</b></router-link>
+                <hr/>
             </section>
 
-            <hr/>
 
             <section class="search-bar">
                 <input v-model="searchTerms" placeholder="Search.." />
@@ -56,9 +56,11 @@
     import * as Actions from '../store/constants';
     import {RouteNames} from '../vue/Routing'
     import ContractService from '../services/ContractService'
+    import {UserTypes} from '../models/User'
 
     export default {
         data(){ return {
+            userTypes:UserTypes,
             routeNames:RouteNames,
             teams:[],
             searchTerms:'',

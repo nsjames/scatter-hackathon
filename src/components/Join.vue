@@ -4,7 +4,7 @@
             <h2>Sign up for Hack Til Dawn</h2>
             <p>You can either sign up as a participant or a voter.</p>
 
-            <router-link :to="{name:routeNames.CREATE_ACCOUNT}" class="button"><b>Create</b> Your Account</router-link>
+            <router-link :to="{name:routeNames.CREATE_ACCOUNT}" class="button"><b>Create</b> Your User</router-link>
         </section>
         <section class="box" v-if="scatter && !identity">
             <h2>Scatter Detected.</h2>

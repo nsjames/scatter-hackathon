@@ -8,10 +8,14 @@ import murmur from 'murmurhash'
 import {store} from '../store/store';
 import Eos from 'eosjs';
 
+const eosNetwork = {
+    blockchain:'eos',
+    host:process.env.NETWORK_HOST,
+    port:process.env.NETWORK_PORT
+};
+
 const host = () => {
-    const h = process.env.NETWORK_HOST;
-    const p = process.env.NETWORK_PORT;
-    return `http://${h}:${p}`;
+    return `http://${eosNetwork.host}:${eosNetwork.port}`;
 };
 
 let signProvider = args => {
@@ -49,10 +53,25 @@ const format = (result, model) => {
 const rowsOnly = result => result.rows;
 const firstOnly = result => result.rows.length ? rowsOnly(result)[0] : null;
 
+const randomAccountName = () => {
+    const size = Math.random() * 8 + 2;
+    let text = "";
+    const possible = "abcdefghij12345.";
+    for(let i=0; i<size; i++) text += possible.charAt(Math.floor(Math.random() * possible.length));
+    return text;
+};
+
+let scateos = null;
+
 export default class ContractService {
 
     constructor(){};
 
+    static getEosNetwork(){ return eosNetwork; }
+    static getScatterEos(){
+        if(!scateos) scateos = store.state.scatter.eos(eosNetwork, Eos.Localnet, {});
+        return scateos;
+    }
     static setSignProvider(_signProvider){ signProvider = _signProvider; }
     static setApp(_app){ app = _app; }
 
@@ -78,13 +97,26 @@ export default class ContractService {
         return rows;
     }
 
+    static async generateAccount(user, publicKey, sig){
+        return new Promise(async(resolve,reject) => {
+            const name = randomAccountName();
+            const eos = getEos();
+
+            const account = await eos.newaccount({ creator: app, name, owner:publicKey, active:publicKey, recovery:app, deposit:`1 EOS` }).catch(reject);
+            const addedUserAccount = await this.addUserAccount(user, name, sig).catch(reject);
+            const token = await eos.contract('eosio.token').catch(reject);
+            const transferred = await token.transfer(app, name, '500.0000 EOS', '').catch(reject);
+            resolve(true);
+        });
+    }
+
     static async getSignHash(){
         return read('proof').then(res => res.rows[0].hash);
     }
 
     static async getSignature(scatter, publicKey){
         const signHash = await ContractService.getSignHash();
-        return await scatter.requestArbitrarySignature(publicKey, signHash,'You must sign this hash to prove your ownership of this identity', true)
+        return await scatter.getArbitrarySignature(publicKey, signHash,'You must sign this hash to prove your ownership of this identity', true)
             .catch(() => null);
     }
 
@@ -150,7 +182,7 @@ export default class ContractService {
 
     // Gets sub objects as well
     static async getTeamsForMember(userid){
-        return read('memberteams',0,1,userid).then(async res => {
+        return read('memberteams',userid,1).then(async res => {
             let teams = [];
             if(res.rows.length){
                 res.rows[0].teamids.map(async teamid => {
@@ -200,6 +232,7 @@ export default class ContractService {
 
     static async createUser(user, sig, recaptcha){ return (await write()).user(user, user.key, sig, recaptcha, appauth()); }
     static async updateUser(user, sig){ return (await write()).userupdate(user, sig, appauth()); }
+    static async addUserAccount(user, accountName, sig){ return (await write()).useracc(user.keyid, accountName, sig, appauth()); }
     static async touchUser(user, sig){ return (await write()).usertouch(user.key, sig, appauth()); }
     static async createIdea(idea, user, sig){ return (await write()).idea(idea.serialize(), user.key, sig, appauth()); }
     static async ideaVote(act, user, sig){ return (await write()).ideavote(act, user.key, sig, appauth()); }

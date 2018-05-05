@@ -51,9 +51,33 @@
                 Not only will there be a monetary prize from the sponsors, but also from community donations.
                 It's impossible to know just how much you will take home. You'll notice there's a <b>Tool Only Dapp</b> category.
                 This is specifically for "Tool" style applications or libraries to promote the creation of EOS tooling.
+
+                <div style="font-size:13px; margin-top:20px;">
+                    <i>Notes about the block.one global hackathon prize.</i>
+                    <ul>
+                        <li>block.one is in no way endorsing any of the sponsors by allowing the winner of this hackathon to compete in the final stage of the eosio global hackathon.</li>
+                        <li>block.one will be reimbursing travel expenses, but not pre-paying them up front.</li>
+                    </ul>
+                </div>
+
+                <div style="font-size:13px; margin-top:20px;">
+                    <i>Notes about the tulip conference tickets.</i>
+                    <ul>
+                        <li>The Tulip Conference is being held in San Francisco, California.</li>
+                        <li>The tickets do not include travel expenses.</li>
+                    </ul>
+                </div>
             </figure>
 
-            <section class="prize-box blue-back" style="margin-top:30px;">
+            <section class="prize-box blue-back shiny" style="margin-top:30px;">
+                <section class="left">Highest Voted Grand Winner</section>
+                <section class="right">
+                    <figure class="prize">This team will be able to compete as a finalist in the block.one EOSIO Global Hackathon!</figure>
+                    <figure class="prize">4 Tickets to the Tulip Conference in San Francisco</figure>
+                </section>
+            </section>
+
+            <section class="prize-box blue-back">
                 <section class="left">4 Grand Winners</section>
                 <section class="right">
                     <figure class="prize">1/5th of the Pot</figure>
@@ -63,10 +87,11 @@
             </section>
 
             <section class="prize-box">
-                <section class="left">Tool Only Dapp</section>
+                <section class="left">Tool Only Dapp/Library</section>
                 <section class="right">
                     <figure class="prize">1/5th of the Pot</figure>
-                    <figure class="prize">Ledger Nano S</figure>
+                    <figure class="prize">VIP Ticket to the Tulip Conference</figure>
+                    <figure class="prize">Ledger Nano</figure>
                     <figure class="prize">EOS Keychain</figure>
                 </section>
             </section>

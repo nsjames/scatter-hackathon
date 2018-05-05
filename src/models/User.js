@@ -17,7 +17,12 @@ export default class User {
         this.bio = bio;
         this.links = links;
         this.last_active = 0;
+        this.account = '';
+        this.sponsor = 0;
+        this.votes = 0;
     }
+
+    clone(){ return User.fromJson(JSON.parse(JSON.stringify(this))); }
 
     static fromJson(json){
         let p = Object.assign(new User(), json);

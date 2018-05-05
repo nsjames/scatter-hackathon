@@ -54,19 +54,6 @@ hr {
 
 .box {
 
-
-  .box-footer {
-    font-size:13px;
-    color:#7d7d7d;
-    text-align:right;
-    width:100%;
-    font-weight:500;
-    margin-top:5px;
-
-    &.red {
-      color:red;
-    }
-  }
   width:100%;
   border:1px solid #c4c4c4;
   border-radius:4px;
@@ -74,6 +61,10 @@ hr {
   text-align: center;
   margin-bottom: 20px;
   overflow: hidden;
+
+  &.dashed {
+    border:2px dashed #c4c4c4;
+  }
 
   &.no-border-top {
     border-top-left-radius: 0;
@@ -97,6 +88,19 @@ hr {
 
   &.large-pad {
     padding:80px 0;
+  }
+
+  .box-footer {
+    font-size:13px;
+    color:#7d7d7d;
+    text-align:right;
+    width:100%;
+    font-weight:500;
+    margin-top:5px;
+
+    &.red {
+      color:red;
+    }
   }
 
   h2 {
@@ -136,6 +140,11 @@ hr {
   p {
     color:#8a8a8a;
     margin-top:5px;
+
+    .blue {
+      color:#478af7 !important;
+      font-size:18px !important;
+    }
   }
 
   .button {
@@ -224,17 +233,23 @@ hr {
     color: #fff;
   }
 
+  &.shiny {
+    box-shadow: 0 20px 150px rgba(0,0,0,0.1), 0 2px 5px rgba(0,0,0,0.1), 0 15px 0 #4068cb;
+  }
+
   .left {
     width:240px;
     float:left;
     text-align: left;
     font-size: 24px;
     font-weight: 800;
-    line-height: 12px;
+    line-height: 27px;
+    margin-top: -5px;
 
     @media (max-width:800px) {
       width:100%;
       line-height: 24px;
+      margin-top: 0;
     }
   }
 
@@ -386,6 +401,10 @@ h1 {
   font-weight: 200;
   color:#c4c4c4;
   margin-top:-40px;
+
+  &.notop {
+    margin-top:0;
+  }
 
   b {
     color:#505050;

@@ -124,7 +124,7 @@ describe('Hack Til Dawn EOSIO Contract', () => {
 
     it('should clean the database first', done => {
         _self.contract(code).then(async hack => {
-            await hack.clean("clean", _selfopts).catch(() => {});
+            await hack.clean(_selfopts).catch(() => {});
             done();
         });
     });

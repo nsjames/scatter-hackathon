@@ -5,12 +5,14 @@ import Ideas from '../views/Ideas.vue'
 import CreateAccount from '../views/CreateAccount.vue'
 import CreateTeam from '../views/CreateTeam.vue'
 import Dashboard from '../views/Dashboard.vue'
+import User from '../views/User.vue'
 import RulesAndFaq from '../views/RulesAndFaq.vue'
 
 export const RouteNames = {
     INDEX:'index',
     TEAMS:'teams',
     TEAM:'team/:name',
+    USER:'user/:name',
     IDEAS:'ideas',
     CREATE_ACCOUNT:'create-account',
     CREATE_TEAM:'create-team',
@@ -22,6 +24,7 @@ const RouteViews = {
     [RouteNames.INDEX]:Landing,
     [RouteNames.TEAMS]:Teams,
     [RouteNames.TEAM]:Team,
+    [RouteNames.USER]:User,
     [RouteNames.IDEAS]:Ideas,
     [RouteNames.CREATE_ACCOUNT]:CreateAccount,
     [RouteNames.CREATE_TEAM]:CreateTeam,

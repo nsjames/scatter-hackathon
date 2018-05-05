@@ -45,28 +45,7 @@ class App {
                     return signargs.sign(signargs.buf, process.env.APP_KEY)
                 });
 
-
-
-                // window.scatter.getIdentity();
-                // const key = 'EOS8PZGdkgrN6Wgrh3ZPdeRRieAQGFR9SstCana61s7pVrHcp74bh';
-                // const key = window.scatter.identity.publicKey;
-                // window.scatter.requestArbitrarySignature(key, '3aad9fc133fc1f53e8f233a235f040e7e535d733f28970eebac3168a78507016', 'Please sign this hash to verify authentication', true).then(res => {
-                //     console.log('res',res);
-                //     console.log('res',res.toString());
-                // })
                 window.scatter = null;
-
-
-
-
-
-
-                // const host = process.env.NETWORK_HOST;
-                // const port = process.env.NETWORK_PORT;
-                // const network = { host, port };
-                // const eosOptions = {};
-                // const eos = store.state.scatter.eos( Eos.Localnet, network, eosOptions );
-                // store.dispatch(Actions.SET_EOSJS, eos);
             })
         });
     }

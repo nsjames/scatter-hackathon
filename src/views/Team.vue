@@ -43,19 +43,19 @@
                 <h3 style="margin-bottom:5px;">Members</h3>
                 <section class="box">
                     <section v-for="member in openTeam.users" class="type-box" :class="{'blue-back':member.keyid === openTeam.keyid}">
-                        <figure class="type">{{member.name}}</figure>
+                        <figure class="type" @click="goToUser(member)">{{member.name}}</figure>
                         <figure class="text">{{member.type}}</figure>
                         <figure v-if="isOwner() && member.keyid !== openTeam.keyid" class="button smaller inline" @click="kickMember(member)">Kick</figure>
                     </section>
                 </section>
 
                 <!-- TEAM REQUESTS -->
-                <section v-if="user && openTeam.keyid === user.keyid && requests.users.length">
+                <section v-if="user && openTeam.keyid === user.keyid && requests && requests.users.length">
                     <hr />
                     <h3 style="margin-bottom:5px;">Member Requests</h3>
                     <section class="box">
                         <section v-for="member in requests.users" class="type-box">
-                            <figure class="type">{{member.name}}</figure>
+                            <figure class="type" @click="goToUser(member)">{{member.name}}</figure>
                             <figure class="text">{{member.type}}</figure>
                             <figure class="button smaller inline" @click="answerRequest(member, true)">Accept</figure>
                             <figure class="button smaller inline" @click="answerRequest(member, false)">Deny</figure>
@@ -169,6 +169,9 @@
         },
 
         methods: {
+            goToUser(user){
+                this.$router.push({name:RouteNames.USER, params:{name:user.name}});
+            },
             cancelEditing(){ this.editing = false; },
             editTeam(){
                 this.error = null;
@@ -190,7 +193,7 @@
                 });
             },
             isMember(){
-                if(this.requests.userids.includes(this.user.keyid)) return true;
+                if(this.requests && this.requests.length && this.requests.userids.includes(this.user.keyid)) return true;
                 return this.openTeam.members.includes(this.user.keyid);
             },
             isOwner(){
