@@ -76,6 +76,22 @@
                 <br><br>
                 Votes can be rescinded and given to other projects but you can only take back a vote 6 hours after giving it.
                 <hr class="short" />
+
+
+                <figure class="center spacer">
+                    <h2>Voting Criteria</h2>
+                    <i>Votes are not binary.</i>
+                </figure>
+                <hr class="short" />
+                When you cast a vote for a project you should rate it based on the specified criteria.
+                <ul>
+                    <li>Use of Blockchain</li>
+                    <li>Usefulness / Potential Adoptability</li>
+                    <li>Originality</li>
+                    <li>User Experience</li>
+                    <li>Fun</li>
+                </ul>
+                <hr class="short" />
             </figure>
 
             <hr />
@@ -131,9 +147,12 @@
                 What this means is that voters should be able to interact with your Smart Contracts using a front-end. Part of their vote will be about user
                 experience, make sure you meet that requirement.
                 <hr class="short" />
-                <h3>You will need to use docker to run your images on our servers.</h3>
-                To load your project into our servers you will need to supply us with a Dockerfile that pulls from a public github. This docker container will be
-                run on one of our servers and users will be able to access it from the Hack Til Dawn site.
+                <h3>We will host your EOS C++ Smart Contracts, but you will need to host your own front-end/back-end servers.</h3>
+                We recommend using <b>DigitalOcean</b> but you may of course use any hosting service you like.
+                <hr class="short" />
+                <h3>Uploading your Smart Contracts.</h3>
+                You can either use a local node connected to our hackathon nodes or the upload panel inside of your project page. If you use your local node you will have to use the EOS account
+                registered with your project/user.
                 <hr class="short" />
             </figure>
 
@@ -148,6 +167,7 @@
                 <hr class="short" />
                 Voters who have donated at least $10 and voted on at least 10 projects will take part in the community raffle.
                 The prizes will be given to 3 randomly selected voters who meet those requirements regardless of donation size.
+                The winners will have to prove ownership of their Ethereum account.
                 <hr class="short" />
 
                 <figure class="center spacer">

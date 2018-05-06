@@ -3,6 +3,8 @@ import Idea from '../models/Idea';
 import User from '../models/User';
 import Project from '../models/Project';
 import JoinRequest from '../models/JoinRequest';
+import ProjectVote from '../models/ProjectVote';
+import {VoteRecord} from '../models/ProjectVote';
 import murmur from 'murmurhash'
 
 import {store} from '../store/store';
@@ -24,6 +26,7 @@ let signProvider = args => {
 
 let app = null;
 const appauth = () => ({authorization:[app]});
+const userauth = account => ({authorization:[app, account]});
 
 const code = 'hackathon';
 
@@ -182,7 +185,7 @@ export default class ContractService {
 
     // Gets sub objects as well
     static async getTeamsForMember(userid){
-        return read('memberteams',userid,1).then(async res => {
+        return read('memberteams',0,1,userid).then(async res => {
             let teams = [];
             if(res.rows.length){
                 res.rows[0].teamids.map(async teamid => {
@@ -195,8 +198,15 @@ export default class ContractService {
     }
 
     // Gets sub objects as well
+    static async getProjectVoteRecords(userid){
+        return read('projectvotes',userid,1).then(async res => {
+            return firstOnly(format(res, VoteRecord));
+        });
+    }
+
+    // Gets sub objects as well
     static async getProject(name, teamuuid = null){
-        const pkeyUUID = teamuuid ? teamuuid : await this.getUUIDFromName('projnames', name);
+        const pkeyUUID = teamuuid ? teamuuid : await this.getUUIDFromName('teamnames', name);
         if(pkeyUUID === null) return null;
         return read('projects',pkeyUUID,1).then(async res => {
             const project = firstOnly(format(res, Project));
@@ -230,7 +240,7 @@ export default class ContractService {
     /******************     WRITE    **********************/
     /******************************************************/
 
-    static async createUser(user, sig, recaptcha){ return (await write()).user(user, user.key, sig, recaptcha, appauth()); }
+    static async createUser(user, sig, scatterHash){ return (await write()).user(user, user.key, sig, scatterHash, appauth()); }
     static async updateUser(user, sig){ return (await write()).userupdate(user, sig, appauth()); }
     static async addUserAccount(user, accountName, sig){ return (await write()).useracc(user.keyid, accountName, sig, appauth()); }
     static async touchUser(user, sig){ return (await write()).usertouch(user.key, sig, appauth()); }
@@ -244,9 +254,25 @@ export default class ContractService {
     static async teamKick(team, user, sig){ return (await write()).teamkick(team.keyid, user.keyid, sig, appauth()); }
     static async teamwork(team, idea, sig){ return (await write()).teamwork(team.keyid, idea.id, sig, appauth()); }
     static async createProject(project, sig){ return (await write()).project(project.serialize(), sig, appauth()); }
-    static async updateProject(project, sig){ return (await write()).projectup(project.serialize(), sig, appauth()); }
-    static async vote(vote, projectid, userid, sig){ return (await write()).vote(vote, projectid, userid, sig, appauth()); }
     static async donation(user, trx, sig){ return (await write()).donation(user.keyid, trx, sig, appauth()); }
+
+    static async updateProject(project){
+        const sign = (buf, sign) => sign(buf, process.env.APP_KEY);
+        const contract = await this.getScatterEos().contract(code, {signProvider:sign});
+        return contract.projectup(project.serialize(), userauth(project.account));
+    }
+
+    static async vote(vote, projectid, user){
+        const sign = (buf, sign) => sign(buf, process.env.APP_KEY);
+        const contract = await this.getScatterEos().contract(code, {signProvider:sign});
+        return contract.vote(vote, projectid, user.keyid, userauth(user.account));
+    }
+
+    static async unvote(projectid, user){
+        const sign = (buf, sign) => sign(buf, process.env.APP_KEY);
+        const contract = await this.getScatterEos().contract(code, {signProvider:sign});
+        return contract.unvote(user.keyid, projectid, userauth(user.account));
+    }
 
 
 

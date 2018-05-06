@@ -1,6 +1,8 @@
 import Landing from '../views/Landing.vue'
 import Teams from '../views/Teams.vue'
 import Team from '../views/Team.vue'
+import Projects from '../views/Projects.vue'
+import Project from '../views/Project.vue'
 import Ideas from '../views/Ideas.vue'
 import CreateAccount from '../views/CreateAccount.vue'
 import CreateTeam from '../views/CreateTeam.vue'
@@ -12,6 +14,8 @@ export const RouteNames = {
     INDEX:'index',
     TEAMS:'teams',
     TEAM:'team/:name',
+    PROJECTS:'projects',
+    PROJECT:'project/:name',
     USER:'user/:name',
     IDEAS:'ideas',
     CREATE_ACCOUNT:'create-account',
@@ -24,6 +28,8 @@ const RouteViews = {
     [RouteNames.INDEX]:Landing,
     [RouteNames.TEAMS]:Teams,
     [RouteNames.TEAM]:Team,
+    [RouteNames.PROJECTS]:Projects,
+    [RouteNames.PROJECT]:Project,
     [RouteNames.USER]:User,
     [RouteNames.IDEAS]:Ideas,
     [RouteNames.CREATE_ACCOUNT]:CreateAccount,

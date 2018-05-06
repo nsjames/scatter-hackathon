@@ -5,6 +5,7 @@
             <router-link :to="{name:routeNames.INDEX}" class="link">Info</router-link>
             <router-link :to="{name:routeNames.IDEAS}" class="link">Ideas</router-link>
             <router-link :to="{name:routeNames.TEAMS}" class="link">Teams</router-link>
+            <router-link :to="{name:routeNames.PROJECTS}" class="link">Projects</router-link>
             <router-link :to="{name:routeNames.RULES_AND_FAQ}" class="link">Rules & FAQ</router-link>
             <router-link v-if="identity" :to="{name:routeNames.DASHBOARD}" class="link">Dashboard</router-link>
         </section>

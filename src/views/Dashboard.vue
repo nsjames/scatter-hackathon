@@ -92,6 +92,18 @@
                             </section>
                         </section>
                     </section>
+
+                    <section class="box" v-if="user.type === userTypes.VOTER && projectVotes.length">
+                        <h2>Project Votes</h2>
+                        <h3>These are the projects you have voted on.</h3>
+                        <div style="height:30px;"></div>
+                        <section class="prize-box" style="cursor: pointer;" @click="goToProject(voteRecord.project)" v-for="voteRecord in projectVotes">
+                            <figure class="left">{{voteRecord.project.team.name}}</figure>
+                            <figure class="right">
+                                {{voteRecord.vote.toArray().map(x => x[1]).join('/')}}
+                            </figure>
+                        </section>
+                    </section>
                 </section>
 
 
@@ -125,6 +137,7 @@
             userTypes:UserTypes,
             generatedAccount:false,
             publicKey:'',
+            projectVotes:[],
         }},
         computed: {
             ...mapState([
@@ -136,18 +149,16 @@
         },
         mounted(){
             setTimeout(async () => {
-                if(!this.identity){
-                    this.$router.push({name:RouteNames.INDEX});
-                    return false;
-                }
-                if(this.user){
-                    this.teams = await ContractService.getTeamsForMember(this.user.keyid);
-                }
+                if(!this.identity) return this.$router.push({name:RouteNames.INDEX});
+                if(this.user) this.loadUserData();
                 this.loaded = true
-            }, 800);
+            }, 1500);
         },
 
         methods: {
+            goToProject(project){
+                this.$router.push({name:RouteNames.PROJECT, params:{name:project.team.name}});
+            },
             goToUser(){
                 if(!this.user) return false;
                 this.$router.push({name:RouteNames.USER, params:{name:this.user.name}});
@@ -158,8 +169,6 @@
                     ContractService.getScatterEos();
                     const addedNetwork = await this.scatter.suggestNetwork(ContractService.getEosNetwork()).catch(() => false);
                     if(!addedNetwork) return false;
-
-
 
                     ContractService.getSignature(this.scatter, this.user.key).then(sig => {
                         if(!sig) return false;
@@ -173,6 +182,17 @@
                 };
                 gen();
             },
+            async loadUserData(){
+                this.teams = await ContractService.getTeamsForMember(this.user.keyid)
+                    .then(teams => teams.filter(team => team.keyid !== this.team.keyid));
+
+                ContractService.getProjectVoteRecords(this.user.keyid).then(async records => {
+                    records.votes.map(async record => this.projectVotes.push({
+                        vote:record.vote,
+                        project:await ContractService.getProject('', record.projectid)
+                    }))
+                });
+            },
             goToTeam(team){ this.$router.push({name:RouteNames.TEAM, params:{name:team.name}}) },
             logout(){
                 this.scatter.forgetIdentity().then(res => {
@@ -183,9 +203,16 @@
             ...mapActions([
                 Actions.SET_IDENTITY
             ])
+        },
+        watch:{
+            async user(){
+                if(!this.user) return false;
+                this.loadUserData();
+            }
         }
     }
 </script>
 
 <style lang="scss">
+
 </style>

@@ -17,7 +17,7 @@
             <section class="box">
                 <h2>Name your team</h2>
                 <div style="height:40px"></div>
-                <input class="link" placeholder="The Avengers.." v-model="team.name" />
+                <input class="link" placeholder="HackTeam.." v-model="team.name" />
                 <figure class="box-footer">{{team.name.length}}/3 characters</figure>
             </section>
 
@@ -37,7 +37,7 @@
             <!-- SOURCES -->
             <section class="box">
                 <h2>Got Sources?</h2>
-                <p>Add some kind of source for yourself.<br> It can be your portfolio, github, twitter, a telegram link, whatever but you must have at least one.</p>
+                <p>Add some kind of source for yourself.<br> It can be your portfolio, github, twitter, a telegram link, or anything else.</p>
                 <div style="height:40px"></div>
                 <section class="links">
                     <input v-for="(link, index) in team.links" class="link" placeholder="http://www..." v-model="link.url" />
@@ -117,23 +117,22 @@
                     return false;
                 }
 
-                if(this.team.name.length < 3){
-                    this.error = `The team's name must be at least 2 characters long`;
-                    return false;
-                }
+                if(this.team.name.length < 3)
+                    return this.error = `The team's name must be at least 2 characters long`;
 
-                if(this.team.bio.length > 500){
-                    this.error = `The team's bio must be less than 500 characters long`
-                    return false;
-                }
+                if(this.team.name.indexOf(' ') > -1)
+                    return this.error = `Team names must contain no spaces`;
+
+
+                if(this.team.bio.length > 500)
+                    return this.error = `The team's bio must be less than 500 characters long`
 
                 this.team.links = this.team.links.filter(link => link.url.length);
 
                 this.team.tags = this.tagsList.split(',').map(x => x.trim()).filter(x => x.length);
-                if(!this.team.tags.length){
-                    this.error = 'You must add at least one tag';
-                    return false;
-                }
+                if(!this.team.tags.length)
+                    return this.error = 'You must add at least one tag';
+
 
                 this.team.key = this.user.key;
 

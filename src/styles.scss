@@ -416,6 +416,12 @@ h1 {
   }
 }
 
+.markdown {
+  h1 {
+    margin-top:0;
+  }
+}
+
 .text {
   color:#505050;
   font-size:20px;
@@ -550,6 +556,10 @@ textarea {
     font-size:18px;
     color:#7d7d7d;
     font-family: 'Raleway', sans-serif;
+
+    &.resizeable {
+      resize:vertical;
+    }
   }
 }
 
@@ -571,6 +581,10 @@ input {
     &:last-child {
       margin-bottom:0;
     }
+  }
+
+  &:disabled {
+    background:rgba(0,0,0,0.04);
   }
 }
 

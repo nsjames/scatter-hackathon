@@ -2,22 +2,24 @@ import ProjectVote from './ProjectVote'
 import Link from './Link'
 
 export const CATEGORIES = {
-    GAME:'Game',
-    TOOL:'Tool',
-    OTHER:'Other'
+    DAPP:'Dapp',
+    TOOL:'Tool'
+};
+
+export const LINK_NAMES = {
+    GITHUB:'GitHub',
+    LIVE_DEMO:'Live Demo'
 };
 
 export default class Project {
 
-    constructor(teamid = 0, name = '', overview = '', whitepaper = {}, category = CATEGORIES.GAME, tags = [], links = []){
+    constructor(teamid = 0, whitepaper = {}, category = CATEGORIES.DAPP, links = []){
         this.teamid = teamid;
-        this.name = name;
-        this.overview = overview;
         this.whitepaper = whitepaper;
         this.category = category;
-        this.tags = tags;
         this.links = links;
         this.votes = new ProjectVote();
+        this.account = '';
 
         this.team = null;
     }
@@ -25,8 +27,8 @@ export default class Project {
     static fromJson(json){
         let p = Object.assign(new Project(), json);
         // p.whitepaper = JSON.parse(json.whitepaper);
-        p.links = json.links.map(Link.fromJson);
-        p.votes = ProjectVote.fromJson(json.votes);
+        if(json.hasOwnProperty('links')) p.links = json.links.map(Link.fromJson);
+        if(json.hasOwnProperty('votes')) p.votes = ProjectVote.fromJson(json.votes);
         return p;
     }
 
@@ -34,7 +36,6 @@ export default class Project {
 
     serialize(){
         const clone = this.clone();
-        clone.whitepaper = JSON.stringify(clone.whitepaper);
         delete clone.team;
         return clone;
     }

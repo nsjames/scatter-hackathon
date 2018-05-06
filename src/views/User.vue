@@ -7,7 +7,10 @@
 
 
             <section v-if="!editing">
-                <h1>{{openUser.name}}</h1>
+                <section style="width:100%; text-align:center">
+                    <h3>{{openUser.type}}</h3>
+                </section>
+                <h1 class="notop">{{openUser.name}}</h1>
 
                 <section class="actions center" v-if="isOwner()">
                     <figure class="action" @click="editUser()">Edit User</figure>
@@ -31,23 +34,24 @@
 
 
                 <!-- TEAMS -->
-                <h3 style="margin-bottom:5px;">Teams</h3>
-                <section class="teams">
-                    <section class="team" v-for="team in teams" @click="goToTeam(team)">
-                        <section class="top">
-                            <h2>{{team.name}}</h2>
-                            <h3>{{team.member_count}} Member{{team.member_count !== 1 ? 's' : '' }}</h3>
-                            <p>{{team.bio}}</p>
-                        </section>
-                        <section class="bottom">
-                            <section class="tags">
-                                <figure class="tag-head">Related Tags</figure>
-                                <figure class="tag" v-for="tag in team.tags">{{tag}}</figure>
+                <section v-if="teams.length">
+                    <h3 style="margin-bottom:5px;">Teams</h3>
+                    <section class="teams">
+                        <section class="team" v-for="team in teams" @click="goToTeam(team)">
+                            <section class="top">
+                                <h2>{{team.name}}</h2>
+                                <h3>{{team.member_count}} Member{{team.member_count !== 1 ? 's' : '' }}</h3>
+                                <p>{{team.bio}}</p>
+                            </section>
+                            <section class="bottom">
+                                <section class="tags">
+                                    <figure class="tag-head">Related Tags</figure>
+                                    <figure class="tag" v-for="tag in team.tags">{{tag}}</figure>
+                                </section>
                             </section>
                         </section>
                     </section>
                 </section>
-                
             </section>
 
 
@@ -68,15 +72,33 @@
                         all networks and blockchains. No one else can impersonate you on websites integrated with RIDL, and your name
                         can hold decentralized reputation.
                     </p>
-                    <div style="height:40px"></div>
-                    <figure class="button" @click="updateUsername()">Update <b>Username</b></figure>
+                    <div style="height:20px"></div>
+                    <h2>{{cloneUser.name}}</h2>
+                    <div style="height:20px"></div>
+                    <figure class="button" @click="updateUsername()">Re-Fetch from <b>Scatter</b></figure>
                 </section>
-                <!--<section class="box">-->
-                    <!--<h2>Name your team</h2>-->
-                    <!--<div style="height:40px"></div>-->
-                    <!--<input class="link" placeholder="The Avengers.." v-model="cloneUser.name" />-->
-                    <!--<figure class="box-footer">{{cloneUser.name.length}}/3 characters</figure>-->
-                <!--</section>-->
+
+                <!-- TEAM MEMBER TYPE -->
+                <section class="box" v-if="cloneUser.type !== userTypes.VOTER">
+                    <h2>What are you?</h2>
+                    <p>Feel like doing something else?</p>
+                    <div style="height:40px"></div>
+
+                    <section class="type-box" @click="changeType(userTypes.HACKER)" :class="{'blue-back':cloneUser.type === userTypes.HACKER}">
+                        <figure class="type">Hacker</figure>
+                        <figure class="text">The Developer</figure>
+                    </section>
+
+                    <section class="type-box" @click="changeType(userTypes.DOODLER)" :class="{'blue-back':cloneUser.type === userTypes.DOODLER}">
+                        <figure class="type">Doodler</figure>
+                        <figure class="text">The Designer</figure>
+                    </section>
+
+                    <section class="type-box" @click="changeType(userTypes.BIGMOUTH)" :class="{'blue-back':cloneUser.type === userTypes.BIGMOUTH}">
+                        <figure class="type">Big Mouth</figure>
+                        <figure class="text">The Marketer</figure>
+                    </section>
+                </section>
 
                 <!-- BIO -->
                 <section class="box">
@@ -131,6 +153,7 @@
 
     export default {
         data(){ return {
+            userTypes:UserTypes,
             openUser:null,
             cloneUser:null,
             loaded:false,
@@ -148,6 +171,10 @@
             ])
         },
         methods: {
+            changeType(type){
+                if(type === UserTypes.VOTER) return false;
+                this.cloneUser.type = type;
+            },
             goToTeam(team){
                 this.$router.push({name:RouteNames.TEAM, params:{name:team.name}});
             },
@@ -175,7 +202,9 @@
             },
             addSource(){ this.cloneUser.links.push(new Link()) },
             updateUsername(){
-
+                this.scatter.getIdentity().then(id => {
+                    this.cloneUser.name = id.name;
+                })
             },
             updateUser(){
                 this.error = null;
@@ -195,11 +224,6 @@
                 }
 
                 this.cloneUser.links = this.cloneUser.links.filter(link => link.url.length);
-                if(this.cloneUser.type !== UserTypes.VOTER && !this.cloneUser.links.length){
-                    this.cloneUser.links.push(new Link());
-                    this.error = 'You must have at least one source';
-                    return false;
-                }
 
                 ContractService.getSignature(this.scatter, this.user.key).then(async sig => {
                     if(!sig) return false;

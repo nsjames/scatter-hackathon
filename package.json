@@ -16,6 +16,7 @@
     "eosjs": "^10.0.0",
     "eosjs-ecc": "^4.0.0",
     "murmurhash": "0.0.2",
+    "showdown": "^1.8.6",
     "vue": "^2.5.13",
     "vue-recaptcha": "^1.1.1",
     "vue-router": "^3.0.1",

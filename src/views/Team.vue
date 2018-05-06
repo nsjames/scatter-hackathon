@@ -8,16 +8,109 @@
             <section v-if="!editing">
                 <h1>{{openTeam.name}}</h1>
 
-                <section class="actions center" v-if="isOwner()">
+                <section class="actions center" v-if="isOwner() && !creatingProject">
                     <figure class="action" @click="editTeam()">Edit Team</figure>
                 </section>
 
                 <section class="actions center" v-if="user && user.type !== userTypes.VOTER">
                     <figure class="action" v-if="!isMember()" @click="requestJoin()">Request To Join Team</figure>
+                    <section class="tags center" v-if="error">
+                        <figure class="tag">{{error}}</figure>
+                    </section>
                 </section>
-                <section class="tags center" v-if="error">
-                    <figure class="tag">{{error}}</figure>
+
+
+
+
+                <!-- Create Project -->
+                <section v-if="isOwner()">
+
+                    <hr />
+                    <section class="box" v-if="!creatingProject">
+                        <h2>Create Project from Team</h2>
+                        <p>
+                            You can now create a Team from your Project. <br>
+                            Teams and Projects are linked indefinitely. The members of your Project are the members of your Team.
+                        </p>
+                        <figure class="button" @click="startProjectCreation" v-if="user.account.length">Create <b>Project</b></figure>
+                        <figure class="box dashed" style="margin-top:20px;" v-if="!user.account.length">
+                            <p><b>Your user does not have an EOS account linked with it.</b></p>
+                            <p>Go to your Dashboard and follow the steps to add an EOS account to your user and your Scatter.</p>
+                        </figure>
+                    </section>
+
+                    <!-- CREATING PROJECT -->
+                    <section v-else>
+                        <section class="actions center">
+                            <figure class="action" @click="creatingProject = false;">Cancel Project Creation</figure>
+                        </section>
+
+                        <!-- NAME -->
+                        <section class="box">
+                            <h2>Your Project's name will always match your Team's name.</h2>
+                            <p>If you change your team name your project name will change as well.</p>
+                            <div style="height:20px;"></div>
+                        </section>
+
+                        <!-- CATEGORY -->
+                        <section class="box">
+                            <h2>Define the Project's Category</h2>
+                            <div style="height:40px"></div>
+
+                            <section class="type-box" @click="changeProjectCategory(categories.DAPP)" :class="{'blue-back':project.category === categories.DAPP}">
+                                <figure class="type">DAPP</figure>
+                                <figure class="text">The <b>DAPP</b> category is for any project that is a decentralized application running on the EOSIO blockchain.</figure>
+                            </section>
+
+                            <section class="type-box" @click="changeProjectCategory(categories.TOOL)" :class="{'blue-back':project.category === categories.TOOL}">
+                                <figure class="type">TOOL</figure>
+                                <figure class="text">The <b>TOOL</b> category is for any project that aims to help developers work with the EOSIO blockchain.</figure>
+                            </section>
+                        </section>
+
+                        <!-- LINKS -->
+                        <section class="box">
+                            <h2>Project Links</h2>
+                            <p v-if="project.category !== categories.TOOL">Some project links are mandatory, such as <b>GitHub</b> and <b>Live Demo</b>.</p>
+                            <p v-else>Some project links are mandatory, such as <b>GitHub</b>.</p>
+                            <div style="height:40px"></div>
+                            <section class="links">
+                                <section class="named-link" v-for="link in project.links">
+                                    <input class="link" :disabled="link.name === linkNames.GITHUB || link.name === linkNames.LIVE_DEMO"
+                                           placeholder="Name this Link" v-model="link.name" />
+                                    <input v-if="link.name === linkNames.LIVE_DEMO" class="link" placeholder="http://domain... OR http://192.16..." v-model="link.url" />
+                                    <input v-else class="link" placeholder="http://domain..." v-model="link.url" />
+                                </section>
+
+                            </section>
+                            <figure class="box-footer" style="cursor:pointer;" @click="addProjectSource()" v-if="project.links.length < 5"><u>add another</u></figure>
+                        </section>
+
+                        <!-- WHITEPAPER -->
+                        <section class="box">
+                            <h2>Project Whitepaper</h2>
+                            <p>You can use markdown to format the look of your Miniature Whitepaper.</p>
+                            <div style="height:40px"></div>
+                            <textarea class="description resizeable" v-model="whitepaper"></textarea>
+                            <figure class="box-footer">{{whitepaper.length}}/500 characters</figure>
+                        </section>
+                        <section class="box markdown" v-html="whitepaperHTML"></section>
+
+                        <section class="box blank">
+                            <figure class="button" @click="createProject()">Create <b>Project</b></figure>
+                        </section>
+
+                        <section class="box" v-if="error">
+                            <p>{{error}}</p>
+                        </section>
+                    </section>
                 </section>
+
+
+
+
+
+
 
                 <hr />
 
@@ -143,7 +236,12 @@
     import {RouteNames} from '../vue/Routing'
     import {UserTypes} from '../models/User'
     import Link from '../models/Link'
+    import Project from '../models/Project'
+    import {CATEGORIES, LINK_NAMES} from '../models/Project'
     import ContractService from '../services/ContractService'
+
+    const showdown  = require('showdown');
+    const converter = new showdown.Converter();
 
     export default {
         data(){ return {
@@ -156,6 +254,12 @@
             editing:false,
             tagsList:'',
             cloneTeam:null,
+            creatingProject:false,
+            project:null,
+            categories:CATEGORIES,
+            linkNames:LINK_NAMES,
+            whitepaper:'',
+            whitepaperHTML:'',
         }},
         computed: {
             ...mapState([
@@ -169,6 +273,56 @@
         },
 
         methods: {
+            startProjectCreation(){
+                if(!this.isOwner()) return false;
+                if(!this.user.account.length) return false;
+                this.cancelEditing();
+                this.project = Project.fromJson({
+                    teamid:this.openTeam.keyid,
+                    name:this.openTeam.name,
+                    account:this.user.account,
+                    links:[
+                        new Link(LINK_NAMES.LIVE_DEMO, ''),
+                        new Link(LINK_NAMES.GITHUB, ''),
+                    ]
+                });
+                this.creatingProject = true;
+            },
+            changeProjectCategory(category){
+                this.project.category = category;
+                this.project.links = this.project.links.filter(link => link.name !== LINK_NAMES.LIVE_DEMO);
+                if(this.project.category === CATEGORIES.DAPP)
+                    this.project.links.unshift(new Link(LINK_NAMES.LIVE_DEMO));
+            },
+            addProjectSource(){
+                this.project.links.push(new Link());
+            },
+            createProject(){
+
+                const links = this.project.links.filter(link => link.url.length && link.url.indexOf('http') === 0);
+                if(this.project.category === CATEGORIES.DAPP && links.length < 2)
+                    return this.error = 'You must fill out both the GitHub link and the Front-End link';
+                if(this.project.category === CATEGORIES.TOOL && links.length < 1)
+                    return this.error = 'You must fill out the GitHub link';
+
+                if(this.project.links.find(link => link.name === LINK_NAMES.GITHUB).url.toLowerCase().indexOf('github.com') === -1)
+                    return this.error = 'The GitHub url you put in is not a valid GitHub URL';
+                this.project.links = links;
+
+                this.project.whitepaper = this.whitepaper;
+
+                ContractService.getSignature(this.scatter, this.user.key).then(async sig => {
+                    if(!sig) return false;
+
+                    const created = await ContractService.createProject(this.project, sig).catch(error => {
+                        this.error = JSON.parse(error).error.details[0].message.replace('condition: assertion failed: ', '');
+                    });
+                    if(!created) return false;
+                    this.$router.push({name:RouteNames.PROJECT, params:{name:this.project.name}});
+                })
+
+
+            },
             goToUser(user){
                 this.$router.push({name:RouteNames.USER, params:{name:user.name}});
             },
@@ -269,10 +423,21 @@
             ...mapActions([
 
             ])
+        },
+        watch: {
+            whitepaper(){
+                this.whitepaperHTML = converter.makeHtml(this.whitepaper);
+            }
         }
     }
 </script>
 
 <style lang="scss">
-
+    .named-link {
+        &:not(:last-child){
+            margin-bottom:20px;
+            padding-bottom:20px;
+            border-bottom:1px solid rgba(0,0,0,0.1);
+        }
+    }
 </style>

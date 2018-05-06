@@ -42,26 +42,27 @@
             <section class="box">
                 <h2>What are you?</h2>
                 <p>
-                    You can not change this later. Choose wisely.
+                    Voters can not be part of teams, and Hackers, Doodlers and Big Mouths ( Team Members ) can not vote.
+                    You can not switch between being a Voter user and a Team Member user later. You <i>will</i> be able to switch between the Team Member user types though.
                 </p>
                 <div style="height:40px"></div>
 
-                <section class="type-box" @click="changeType(tmt.VOTER)" :class="{'blue-back':user.type === tmt.VOTER}">
+                <section class="type-box" @click="changeType(userTypes.VOTER)" :class="{'blue-back':user.type === userTypes.VOTER}">
                     <figure class="type">Voter</figure>
                     <figure class="text">You may only vote on projects</figure>
                 </section>
 
-                <section class="type-box" @click="changeType(tmt.HACKER)" :class="{'blue-back':user.type === tmt.HACKER}">
+                <section class="type-box" @click="changeType(userTypes.HACKER)" :class="{'blue-back':user.type === userTypes.HACKER}">
                     <figure class="type">Hacker</figure>
                     <figure class="text">The Developer</figure>
                 </section>
 
-                <section class="type-box" @click="changeType(tmt.DOODLER)" :class="{'blue-back':user.type === tmt.DOODLER}">
+                <section class="type-box" @click="changeType(userTypes.DOODLER)" :class="{'blue-back':user.type === userTypes.DOODLER}">
                     <figure class="type">Doodler</figure>
                     <figure class="text">The Designer</figure>
                 </section>
 
-                <section class="type-box" @click="changeType(tmt.BIGMOUTH)" :class="{'blue-back':user.type === tmt.BIGMOUTH}">
+                <section class="type-box" @click="changeType(userTypes.BIGMOUTH)" :class="{'blue-back':user.type === userTypes.BIGMOUTH}">
                     <figure class="type">Big Mouth</figure>
                     <figure class="text">The Marketer</figure>
                 </section>
@@ -70,7 +71,7 @@
 
 
             <!-- BIO -->
-            <section class="box" v-if="user.type !== tmt.VOTER">
+            <section class="box" v-if="user.type !== userTypes.VOTER">
                 <h2>Who are you?</h2>
                 <p>Give a brief description of who you are and what you do. Keep it light and fun.</p>
                 <div style="height:40px"></div>
@@ -80,7 +81,7 @@
 
 
             <!-- SOURCES -->
-            <section class="box" v-if="user.type !== tmt.VOTER">
+            <section class="box" v-if="user.type !== userTypes.VOTER">
                 <h2>Got Sources?</h2>
                 <p>Add some kind of source for yourself.<br> It can be your portfolio, github, twitter, a telegram link, or anything else.</p>
                 <div style="height:40px"></div>
@@ -127,7 +128,7 @@
         data(){ return {
             recaptcha:false,
             user:new User(),
-            tmt:UserTypes,
+            userTypes:UserTypes,
             error:null
         }},
         computed: {
@@ -164,41 +165,25 @@
                 if(!this.scatter || !this.identity) return false;
                 if(!this.recaptcha) return false;
 
-                if(this.user.type !== UserTypes.VOTER && this.user.bio.length < 100) {
-                    this.error = 'Your bio must be at least 100 characters long';
-                    return false;
-                }
+                this.user.links = this.user.links.filter(link => link.url.length);
 
-//                this.user.links = this.user.links.filter(link => link.url.length);
-//                if(this.user.type !== UserTypes.VOTER && !this.user.links.length){
-//                    this.user.links.push(new Link());
-//                    this.error = 'You must have at least one source';
-//                    return false;
-//                }
+                if(this.user.type !== UserTypes.VOTER && this.user.bio.length < 100)
+                    return this.error = 'Your bio must be at least 100 characters long';
 
                 ContractService.getSignature(this.scatter, this.identity.publicKey).then(async sig => {
-                    if(!sig){
-                        this.error = 'Could not get signature';
-                        return false;
-                    }
+                    if(!sig) return this.error = 'Could not get signature';
 
-                    const created = await ContractService.createUser(this.user, sig, this.recaptcha).catch(error => {
+                    const created = await ContractService.createUser(this.user, sig, this.identity.hash).catch(error => {
                         this.error = JSON.parse(error).error.details[0].message.replace('condition: assertion failed: ', '');
                     });
 
                     const user = await ContractService.getUserFromPublicKey(this.identity.publicKey).catch(() => {});
-                    if(!user){
-                        this.error = 'There seems to have been a problem creating this user. Try again.'
-                        return false;
-                    }
+                    if(!user) return this.error = 'There seems to have been a problem creating this user. Try again.'
 
                     this[Actions.SET_USER](user);
                     if(this.user.type === UserTypes.VOTER) this.$router.push({name:RouteNames.TEAMS});
                     else this.$router.push({name:RouteNames.TEAMS});
                 });
-
-
-
             },
             ...mapActions([
                 Actions.SET_IDENTITY,
