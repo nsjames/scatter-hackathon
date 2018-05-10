@@ -7,12 +7,13 @@
 
             <section v-if="!editing">
                 <section style="width:100%; text-align:center;">
-                    <h2>{{openProject.category}}</h2>
+                    <h2>{{openProject.category}} Project</h2>
                 </section>
                 <h1 class="notop">{{openProject.team.name}}</h1>
 
-                <section class="actions center" v-if="isOwner()">
-                    <figure class="action" @click="editProject()">Edit Project</figure>
+                <section class="actions center">
+                    <figure class="action" v-if="isOwner()" @click="editProject()">Edit Project</figure>
+                    <figure class="action" @click="goToTeam()">Go To Team</figure>
                 </section>
 
                 <hr />
@@ -51,7 +52,7 @@
 
                     <div style="height:40px;"></div>
                     <section class="actions center">
-                        <figure class="action" @click="castVote" v-if="isNewVote" style="margin-right:0;">Cast Vote</figure>
+                        <figure class="action" @click="castVote" v-if="user && user.type === userTypes.VOTER && isNewVote" style="margin-right:0;">Cast Vote</figure>
                         <figure class="action" @click="retractVote" v-if="!isNewVote" style="margin-right:0;">Retract Vote</figure>
                         <section class="tags center" v-if="voteError">
                             <figure class="tag">{{voteError}}</figure>
@@ -186,6 +187,9 @@
         },
 
         methods: {
+            addProjectSource(){
+                this.cloneProject.links.push(new Link());
+            },
             canVote(){
                 return this.user && this.user.type === UserTypes.VOTER;
             },
@@ -236,7 +240,7 @@
                 this.projectVote[key] = this.projectVote[key] === 1 ? 0 : 1;
             },
             goToUser(user){ this.$router.push({name:RouteNames.USER, params:{name:user.name}}); },
-            goToTeam(team){ this.$router.push({name:RouteNames.TEAM, params:{name:team.name}}); },
+            goToTeam(){ this.$router.push({name:RouteNames.TEAM, params:{name:this.openProject.team.name}}); },
             getProject(){
                 ContractService.getProject(this.$route.params.name).then(async project => {
                     if(!project) return this.$router.push({name:RouteNames.PROJECTS});

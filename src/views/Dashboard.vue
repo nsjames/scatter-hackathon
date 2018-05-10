@@ -23,6 +23,8 @@
                 <!-- ALREADY USER -->
                 <section v-else>
 
+
+
                     <section class="box" v-if="user.account === ''">
                         <section v-if="!generatedAccount">
                             <h2>You need an EOS Account</h2>
@@ -52,6 +54,10 @@
                             </p>
                         </section>
                     </section>
+
+
+                    <!-- SHARE -->
+                    <share v-if="user.type === userTypes.VOTER"></share>
 
 
 
@@ -187,6 +193,7 @@
                     .then(teams => teams.filter(team => team.keyid !== this.team.keyid));
 
                 ContractService.getProjectVoteRecords(this.user.keyid).then(async records => {
+                    if(!records) return;
                     records.votes.map(async record => this.projectVotes.push({
                         vote:record.vote,
                         project:await ContractService.getProject('', record.projectid)

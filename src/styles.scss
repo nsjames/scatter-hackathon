@@ -213,7 +213,18 @@ hr {
     padding:0;
     border:0;
 
-    .button { margin-top:0; }
+    .button {
+      &:first-child { margin-top:0; }
+      &:not(:first-child) { margin-top:5px; }
+    }
+  }
+}
+
+.named-link {
+  &:not(:last-child){
+    margin-bottom:20px;
+    padding-bottom:20px;
+    border-bottom:1px solid rgba(0,0,0,0.1);
   }
 }
 

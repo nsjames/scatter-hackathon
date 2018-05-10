@@ -6,10 +6,15 @@
             <div style="height:50px;"></div>
 
             <section v-if="!editing">
-                <h1>{{openTeam.name}}</h1>
 
-                <section class="actions center" v-if="isOwner() && !creatingProject">
-                    <figure class="action" @click="editTeam()">Edit Team</figure>
+                <section style="width:100%; text-align:center;">
+                    <h2>Team</h2>
+                </section>
+                <h1 class="notop">{{openTeam.name}}</h1>
+
+                <section class="actions center">
+                    <figure class="action" v-if="isOwner() && !creatingProject" @click="editTeam()">Edit Team</figure>
+                    <figure class="action" v-if="project" @click="goToProject()">Go To Project</figure>
                 </section>
 
                 <section class="actions center" v-if="user && user.type !== userTypes.VOTER">
@@ -23,7 +28,7 @@
 
 
                 <!-- Create Project -->
-                <section v-if="isOwner()">
+                <section v-if="isOwner() && !project && loaded">
 
                     <hr />
                     <section class="box" v-if="!creatingProject">
@@ -273,6 +278,9 @@
         },
 
         methods: {
+            goToProject(){
+                this.$router.push({name:RouteNames.PROJECT, params:{name:this.openTeam.name}});
+            },
             startProjectCreation(){
                 if(!this.isOwner()) return false;
                 if(!this.user.account.length) return false;
@@ -341,6 +349,9 @@
                     else {
                         this.openTeam = team;
                         await ContractService.getTeamMemberRequests(team.keyid).then(requests => this.requests = requests);
+                        await ContractService.getProject(this.openTeam.name).then(async project => {
+                            this.project = project;
+                        });
                     }
 
                     this.loaded = true;
@@ -433,11 +444,5 @@
 </script>
 
 <style lang="scss">
-    .named-link {
-        &:not(:last-child){
-            margin-bottom:20px;
-            padding-bottom:20px;
-            border-bottom:1px solid rgba(0,0,0,0.1);
-        }
-    }
+
 </style>

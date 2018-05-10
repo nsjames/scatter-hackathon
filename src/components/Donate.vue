@@ -11,6 +11,7 @@
 
         <section class="box blue-border" style="margin-top:20px;">
             <h3><b>Send any amount of EOS or ETH to Hack Til Dawn</b></h3>
+            <p>Donation Raffles will only be drawn from donations above $10.</p>
             <h4 class="eth os"><b>{{ethaddr}}</b></h4>
             <figure style="margin-top:20px;">
                 <img src="assets/img/qr.png"/>
@@ -62,6 +63,7 @@
         methods: {
             getTotalDonations(){
                 const getPrices = async() => {
+
                     const eosurl = 'https://api.etherscan.io/api'+
                         '?module=account'+
                         '&action=tokenbalance'+

@@ -8,6 +8,8 @@ import Hero from './components/Hero.vue'
 import FloatingMenu from './components/FloatingMenu.vue'
 import Join from './components/Join.vue'
 import Donate from './components/Donate.vue'
+import Sponsors from './components/Sponsors.vue'
+import Share from './components/Share.vue'
 import VueRecaptcha from 'vue-recaptcha';
 
 
@@ -27,6 +29,8 @@ class App {
             {tag:'recaptcha', vue:VueRecaptcha},
             {tag:'join', vue:Join},
             {tag:'donate', vue:Donate},
+            {tag:'sponsors', vue:Sponsors},
+            {tag:'share', vue:Share},
         ];
 
         const middleware = (to, next, store) => {

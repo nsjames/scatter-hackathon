@@ -1,9 +1,3 @@
-const host = () => {
-    const h = process.env.NETWORK_HOST;
-    const p = process.env.NETWORK_PORT;
-    return `http://${h}:${p}`;
-};
-
 import Eos from 'eosjs';
 import ecc from 'eosjs-ecc';
 import ContractService from '../src/services/ContractService'
@@ -13,9 +7,17 @@ import IdeaAction from '../src/models/IdeaAction';
 import User from '../src/models/User';
 import Link from '../src/models/Link';
 import Project from '../src/models/Project';
+import ProjectVote from '../src/models/ProjectVote';
 import {UserTypes} from '../src/models/User';
+import {store} from '../src/store/store';
 import { assert } from 'chai';
 import 'mocha';
+
+const host = () => {
+    const h = process.env.NETWORK_HOST;
+    const p = process.env.NETWORK_PORT;
+    return `http://${h}:${p}`;
+};
 
 
 /***
@@ -92,25 +94,25 @@ describe('Hack Til Dawn EOSIO Contract', () => {
         return {identity, created};
     };
 
+    it('should clean the database first', done => {
+        _self.contract(code).then(async hack => {
+            await hack.clean('',_selfopts).catch(err => console.log('ERRORRRRRR: ', err));
+            done();
+        });
+    });
+
     it('should set the app key', done => {
         new Promise(async() => {
-            const privateKey = await ecc.randomKey();
+            // const privateKey = await ecc.randomKey();
+            const privateKey = process.env.APP_KEY;
             const publicKey = ecc.privateToPublic(privateKey);
             app = {privateKey, publicKey};
-            appacc = randomAccountName();
-            const created = await eosio.newaccount({
-                creator: 'eosio',
-                name: appacc,
-                owner: publicKey,
-                active: publicKey,
-                recovery: 'eosio'
-            }).catch(() => {});
-            assert(!!created, "Could not create app account");
+            appacc = process.env.APP_ACC;
             appopt = {keyProvider:privateKey, authorization:[appacc]};
 
             const hack = await eos([codekey, privateKey]).contract(code);
-            const setkey = await hack.setkey(appacc, {authorization:[code, appacc]}).catch(() => {});
-            assert(!!setkey, "Could not set the app key");
+            const init = await hack.init(appacc, 'proof', {authorization:[code, appacc]}).catch(() => {});
+            assert(!!init, "Could not set the app key");
 
             ContractService.setApp(appacc);
             ContractService.setSignProvider(async signargs => {
@@ -119,13 +121,6 @@ describe('Hack Til Dawn EOSIO Contract', () => {
             done();
 
 
-        });
-    });
-
-    it('should clean the database first', done => {
-        _self.contract(code).then(async hack => {
-            await hack.clean(_selfopts).catch(() => {});
-            done();
         });
     });
 
@@ -259,17 +254,19 @@ describe('Hack Til Dawn EOSIO Contract', () => {
 
     it('should allow voting and flagging on ideas', done => {
         new Promise(async() => {
-            const idea = ideas[0];
-            const voter = ideaOwner();
-            const voted = await ContractService.ideaVote(new IdeaAction(voter.keyid, idea.id), voter, identityFor(voter).sign(signHash));
-            assert(!!voted, "Could not commit an idea vote");
-            const flagged = await ContractService.ideaFlag(new IdeaAction(voter.keyid, idea.id), voter, identityFor(voter).sign(signHash));
-            assert(!!flagged, "Could not commit an idea flag");
-            ideas = await ContractService.getIdeas();
-            assert(ideas[0].upvotes === 1, "Got wrong idea vote count");
-            assert(ideas[0].flags === 1, "Got wrong idea flag count");
-            await ContractService.ideaVote(new IdeaAction(voter.keyid, idea.id), voter, identityFor(voter).sign(signHash)).catch(() => {});
-            assert(ideas[0].upvotes === 1, "Should have failed the vote but did not");
+            try {
+                const idea = ideas[0];
+                const voter = ideaOwner();
+                const voted = await ContractService.ideaVote(new IdeaAction(voter.keyid, idea.id), voter, identityFor(voter).sign(signHash));
+                assert(!!voted, "Could not commit an idea vote");
+                const flagged = await ContractService.ideaFlag(new IdeaAction(voter.keyid, idea.id), voter, identityFor(voter).sign(signHash));
+                assert(!!flagged, "Could not commit an idea flag");
+                ideas = await ContractService.getIdeas();
+                assert(ideas[0].upvotes === 1, "Got wrong idea vote count");
+                assert(ideas[0].flags === 1, "Got wrong idea flag count");
+                await ContractService.ideaVote(new IdeaAction(voter.keyid, idea.id), voter, identityFor(voter).sign(signHash)).catch(() => {});
+                assert(ideas[0].upvotes === 1, "Should have failed the vote but did not");
+            } catch (e) {}
             done();
         });
     });
@@ -326,27 +323,115 @@ describe('Hack Til Dawn EOSIO Contract', () => {
         })
     });
 
-    it('should allow a team to create a project', done => {
+    const createProject = async () => {
+        const leader = teamOwner();
+        const team = teams[0];
+        const project = new Project(team.keyid, 'SomeProject');
+        return ContractService.createProject(project, identityFor(leader).sign(signHash)).catch(() => {});
+    }
+
+    it('should NOT allow a team to create a project while not in the project period', done => {
+        new Promise(async() => {
+            const created = await createProject();
+            assert(!created, "Created a project when it shouldn't have");
+            assert(projects.length === 0, "Projects count should be 0.");
+            done();
+        })
+    });
+
+    it('setting project phase', done => {
+        _self.contract(code).then(async hack => {
+            await hack.togglep(1,_selfopts);
+            done();
+        });
+    });
+
+    it('should NOT allow a team to create a project while their leader does not have an account', done => {
+        new Promise(async() => {
+            const created = await createProject();
+            assert(!created, "Created a project when it shouldn't have");
+            assert(projects.length === 0, "Projects count should be 0.");
+            done();
+        })
+    });
+
+    it('should set an EOS account on the team leader user', done => {
         new Promise(async() => {
             const leader = teamOwner();
-            const team = teams[0];
-            const project = new Project(team.keyid, 'SomeProject');
-            const created = await ContractService.createProject(project, identityFor(leader).sign(signHash));
+            await ContractService.generateAccount(leader, leader.key, identityFor(leader).sign(signHash));
+            users = await ContractService.getAllUsers();
+            assert(teamOwner().account.length, "Leader did not have an account bound");
+            setTimeout(() => done(), 1000);
+        });
+    });
+
+    it('should allow a team to create a project', done => {
+        new Promise(async() => {
+            const created = await createProject();
             assert(!!created, "Could not create a new project");
+            console.log('TEAM OWNER---------------------', teamOwner());
             projects = await ContractService.getProjects();
             assert(projects.length === 1, "Did not create the new project.");
             done();
         })
     });
 
+    let signProvider;
+
+    it('should set a fake scatter on the scope', () => {
+        const leader = teamOwner();
+        signProvider = signargs => [signargs.sign(signargs.buf, identityFor(leader).privateKey), signargs.sign(signargs.buf, process.env.APP_KEY)];
+        store.state.scatter = {eos:() => Eos.Localnet({httpEndpoint:host(), signProvider})};
+    });
+
     it('should allow a team to update a project', done => {
         new Promise(async() => {
             const leader = teamOwner();
             const project = projects[0];
-            project.overview = 'Changed';
-            const created = await ContractService.updateProject(project, identityFor(leader).sign(signHash));
+            project.whitepaper = 'Changed';
+            const created = await ContractService.updateProject(project);
             projects = await ContractService.getProjects();
-            assert(projects[0].overview === 'Changed', "Did not update the project.");
+            assert(projects[0].whitepaper === 'Changed', "Did not update the project.");
+            done();
+        })
+    });
+
+    const vote = async () => {
+        const v = new ProjectVote(1,1,1,0,0);
+        await ContractService.vote(v, projects[0].teamid, ideaOwner());
+        projects = ContractService.getProjects();
+    }
+
+    it('should NOT allow a voter to vote on a project while they do not have an account', done => {
+        new Promise(async() => {
+            const created = await vote().catch(() => {});
+            assert(!created, "Allowed user to vote without an account");
+            assert(projects[0].votes.use_of_blockchain === 0, "Use of blockchain should be 0.");
+            done();
+        })
+    });
+
+    it('should set an EOS account on the voting user', done => {
+        new Promise(async() => {
+            const voter = ideaOwner();
+            await ContractService.generateAccount(voter, voter.key, identityFor(voter).sign(signHash));
+            users = await ContractService.getAllUsers();
+            assert(ideaOwner().account.length, "Voter did not have an account bound");
+            console.log('idea', ideaOwner(), identityFor(voter).privateKey)
+            setTimeout(() => done(), 1000);
+        });
+    });
+
+    it('should set a fake scatter on the scope for the voting user', () => {
+        const voter = ideaOwner();
+        console.log('voter', voter);
+        signProvider = signargs => [signargs.sign(signargs.buf, identityFor(voter).privateKey), signargs.sign(signargs.buf, process.env.APP_KEY)];
+    });
+
+    it('should allow a voter to vote on a project', done => {
+        new Promise(async() => {
+            const created = await vote();
+            assert(projects[0].votes.use_of_blockchain === 1, "Use of blockchain should be 1.");
             done();
         })
     });

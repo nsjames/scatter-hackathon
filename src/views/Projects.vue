@@ -64,13 +64,10 @@
         mounted(){
             ContractService.getAllProjects().then(projects => {
                 projects.map(async project => {
-                    await ContractService.getProject('', project.teamid).then(p => this.projects.unshift(p));
+                    console.log('projects', projects);
+                    await ContractService.getProject('', project.teamid).then(project => this.projects.unshift(project));
                 });
-//                this.projects = projects
             });
-            setTimeout(() => {
-                console.log(this.user);
-            }, 1000)
         },
 
         methods: {

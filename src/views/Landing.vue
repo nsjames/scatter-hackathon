@@ -52,56 +52,77 @@
                 It's impossible to know just how much you will take home. You'll notice there's a <b>Tool Only Dapp</b> category.
                 This is specifically for "Tool" style applications or libraries to promote the creation of EOS tooling.
 
-                <div style="font-size:13px; margin-top:20px;">
-                    <i>Notes about the block.one global hackathon prize.</i>
-                    <ul>
-                        <li>block.one is in no way endorsing any of the sponsors by allowing the winner of this hackathon to compete in the final stage of the eosio global hackathon.</li>
-                        <li>block.one will be reimbursing travel expenses, but not pre-paying them up front.</li>
-                    </ul>
-                </div>
+                <!--<div style="font-size:13px; margin-top:20px;">-->
+                    <!--<i>Notes about the block.one global hackathon prize.</i>-->
+                    <!--<ul>-->
+                        <!--<li>block.one is in no way endorsing any of the sponsors by allowing the winner of this hackathon to compete in the final stage of the eosio global hackathon.</li>-->
+                        <!--<li>block.one will be reimbursing travel expenses, but not pre-paying them up front.</li>-->
+                    <!--</ul>-->
+                <!--</div>-->
 
-                <div style="font-size:13px; margin-top:20px;">
-                    <i>Notes about the tulip conference tickets.</i>
-                    <ul>
-                        <li>The Tulip Conference is being held in San Francisco, California.</li>
-                        <li>The tickets do not include travel expenses.</li>
-                    </ul>
-                </div>
+                <!--<div style="font-size:13px; margin-top:20px;">-->
+                    <!--<i>Notes about the tulip conference tickets.</i>-->
+                    <!--<ul>-->
+                        <!--<li>The Tulip Conference is being held in San Francisco, California.</li>-->
+                        <!--<li>The tickets do not include travel expenses.</li>-->
+                    <!--</ul>-->
+                <!--</div>-->
             </figure>
 
-            <section class="prize-box blue-back shiny" style="margin-top:30px;">
-                <section class="left">Highest Voted Grand Winner</section>
-                <section class="right">
-                    <figure class="prize">This team will be able to compete as a finalist in the block.one EOSIO Global Hackathon!</figure>
-                    <figure class="prize">4 Tickets to the Tulip Conference in San Francisco</figure>
-                </section>
-            </section>
+            <!--<section class="prize-box blue-back shiny" style="margin-top:30px;">-->
+                <!--<section class="left">-->
+                    <!--Highest Voted Grand Winner-->
+                    <!--<p style="font-size:13px; line-height:13px; margin-top:5px;">-->
+                        <!--This winner is selected from the 4 Grand Winners based on the most votes.-->
+                        <!--They also get all of the rewards from being one of the grand winners.-->
+                    <!--</p>-->
+                <!--</section>-->
+                <!--<section class="right">-->
+                    <!--<figure class="prize" style="font-size:22px;">This team will be able to compete as a finalist in the block.one EOSIO Global Hackathon!</figure>-->
+                    <!--<figure class="prize">4 Tickets to the Tulip Conference in San Francisco</figure>-->
+                <!--</section>-->
+            <!--</section>-->
 
-            <section class="prize-box blue-back">
-                <section class="left">4 Grand Winners</section>
+            <section class="prize-box blue-back" style="margin-top:30px;">
+                <section class="left">
+                    4 Grand Winners
+                    <p style="font-size:13px; line-height:13px; margin-top:5px;">
+                        We are splitting up the winnings over a few winners to help teams be able to build
+                        what they are passionate about, and not just what they think the voters will like.
+                    </p>
+                </section>
                 <section class="right">
                     <figure class="prize">1/5th of the Pot</figure>
-                    <figure class="prize">EOS Keychain</figure>
                     <figure class="prize">Promoted Dapp on <u>eosindex.io</u></figure>
                 </section>
             </section>
 
             <section class="prize-box">
-                <section class="left">Tool Only Dapp/Library</section>
+                <section class="left">
+                    Tool
+                    <p style="font-size:13px; line-height:13px; margin-top:5px;">
+                        This prize is reserved for tool only dapps/libraries. This includes things like
+                        testing frameworks, language wrappers, etc.
+                    </p>
+                </section>
                 <section class="right">
                     <figure class="prize">1/5th of the Pot</figure>
-                    <figure class="prize">VIP Ticket to the Tulip Conference</figure>
+                    <figure class="prize">2 VIP Tickets to the Tulip Conference</figure>
                     <figure class="prize">Ledger Nano</figure>
-                    <figure class="prize">EOS Keychain</figure>
                 </section>
             </section>
 
             <section class="prize-box">
-                <section class="left">3 Voter Winners</section>
+                <section class="left">
+                    Donation Raffles
+                    <p style="font-size:13px; line-height:13px; margin-top:5px;">
+                        Anyone who donates to this hackathon + votes on at least 1 project or shares their personal referral link has a chance to win.
+                    </p>
+                </section>
                 <section class="right">
-                    <figure class="prize">Ledger Nano</figure>
-                    <figure class="prize">EOS Keychain</figure>
-                    <figure class="prize">Scatter Hackathon T-Shirt</figure>
+                    <figure class="prize">Ledger Nanos</figure>
+                    <figure class="prize">EOS Keychains</figure>
+                    <figure class="prize">T-Shirts</figure>
                 </section>
             </section>
             <donate></donate>
@@ -163,34 +184,9 @@
                 associated with <b>Hack Til Dawn</b> in any way, shape, or form.
             </figure>
 
-            <section class="sponsor-head">Block Producer Candidates</section>
-            <section class="sponsors">
-                <section class="sponsor" v-for="sponsor in blockProducers">
-                    <a :href="sponsor.url" target="_blank">
-                        <figure class="img" :style="{ backgroundImage: `url(${sponsor.img})` }"></figure>
-                    </a>
-                    <section class="info">
-                        <figure class="name"><b>{{sponsor.name}}</b>{{sponsor.name2}}</figure>
-                        <figure v-if="sponsor.url" class="url"><a :href="sponsor.url" target="_blank">{{sponsor.url}}</a></figure>
-                    </section>
-                    <figure class="bio">{{sponsor.bio}}</figure>
-                </section>
+            <section v-for="sponsor in sponsors">
+                <sponsors :title="sponsor[0]" :sponsors="sponsor[1]"></sponsors>
             </section>
-
-            <section class="sponsor-head">Applications & Community</section>
-            <section class="sponsors">
-                <section class="sponsor" v-for="sponsor in dappsAndCommunity">
-                    <a :href="sponsor.url" target="_blank">
-                        <figure class="img" :style="{ backgroundImage: `url(${sponsor.img})` }"></figure>
-                    </a>
-                    <section class="info">
-                        <figure class="name"><b>{{sponsor.name}}</b>{{sponsor.name2}}</figure>
-                        <figure v-if="sponsor.url" class="url"><a :href="sponsor.url" target="_blank">{{sponsor.url}}</a></figure>
-                    </section>
-                    <figure class="bio">{{sponsor.bio}}</figure>
-                </section>
-            </section>
-
 
             <hr/>
             <h1 ref="participate">sharing is <b>caring</b></h1>
@@ -201,46 +197,7 @@
                 Help get the word out about this hackathon so that more developers jump on board.
             </figure>
 
-            <section class="box" style="margin-top:50px;">
-                <h2>Share This Page!</h2>
-                <p>
-                    In this day and age it takes a mob to get the word out about anything.
-                    If you know any developers be sure to let them in on this opportunity.
-                </p>
-
-                <figure @click="twitterShare()" class="button">Share on <b>Twitter</b></figure>
-                <figure @click="facebookShare()" class="button short-top">Share on <b>Facebook</b></figure>
-                <a href="https://t.me/HackTilDawn"><figure class="button short-top">Join our <b>Telegram</b></figure></a>
-
-                <hr/>
-
-                <p>
-                    <b>Don’t stop there.</b>
-                    <br><br>
-
-                    Write about this on
-                    <span class="links">
-                        <a href="https://steemit.com/">Steemit</a>, <a href="https://busy.org/">Busy</a>,
-                    <a href="https://medium.com/">Medium</a> or any other blog platform you participate in.
-                    Tell your friends on
-                    <a href="https://telegram.org/">Telegram</a>. Post about it on
-                    <a href="https://www.reddit.com/">Reddit</a>. Help get the word out any way you can.
-                    </span>
-                </p>
-            </section>
-
-            <!--<section class="box">-->
-                <!--<h2>Get Ready To Vote!</h2>-->
-                <!--<p>-->
-                    <!--There will be a voting period after the Hackathon closes and before the winner-->
-                    <!--announcements. This wont be the final vote but it will have an impact on our decisions.-->
-                <!--</p>-->
-
-                <!--<figure class="button disabled"><b>View</b> the Projects</figure>-->
-            <!--</section>-->
-
-
-
+            <share></share>
 
 
             <div style="height:80px"></div>
@@ -267,13 +224,10 @@
         return a;
     }
 
-    const url = "https://hack-til-dawn.com/";
-
     export default {
         data(){ return {
             routeNames:RouteNames,
-            blockProducers:shuffle(blockProducers),
-            dappsAndCommunity:shuffle(dappsAndCommunity),
+            sponsors:shuffle([['Block Producer Candidates', shuffle(blockProducers)], ['Applications & Community', shuffle(dappsAndCommunity)]]),
             liveEvents,
 
             now: Math.trunc((new Date()).getTime() / 1000),
@@ -302,14 +256,6 @@
         },
 
         methods: {
-            twitterShare(){
-                const text = `Check out this completely online #EOS hackathon!`;
-                window.open(`http://twitter.com/share?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`, '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
-            },
-            facebookShare(){
-                const text = `Check out this completely online EOS hackathon!`;
-                window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${text}&hashtag=#EOS`, '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
-            },
             ...mapActions([
 
             ])

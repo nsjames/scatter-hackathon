@@ -5,6 +5,7 @@ import Project from '../models/Project';
 import JoinRequest from '../models/JoinRequest';
 import ProjectVote from '../models/ProjectVote';
 import {VoteRecord} from '../models/ProjectVote';
+import Settings from '../models/Settings';
 import murmur from 'murmurhash'
 
 import {store} from '../store/store';
@@ -72,6 +73,7 @@ export default class ContractService {
 
     static getEosNetwork(){ return eosNetwork; }
     static getScatterEos(){
+        console.log('scatter----------', store.scatter.eos)
         if(!scateos) scateos = store.state.scatter.eos(eosNetwork, Eos.Localnet, {});
         return scateos;
     }
@@ -109,12 +111,19 @@ export default class ContractService {
             const addedUserAccount = await this.addUserAccount(user, name, sig).catch(reject);
             const token = await eos.contract('eosio.token').catch(reject);
             const transferred = await token.transfer(app, name, '500.0000 EOS', '').catch(reject);
-            resolve(true);
+            resolve(name);
+        });
+    }
+
+    static async getSettings(){
+        return await read('settings').then(res => {
+            return firstOnly(format(res, Settings));
         });
     }
 
     static async getSignHash(){
-        return read('proof').then(res => res.rows[0].hash);
+        const settings = await this.getSettings();
+        return settings ? settings.proof : '';
     }
 
     static async getSignature(scatter, publicKey){
@@ -210,7 +219,7 @@ export default class ContractService {
         if(pkeyUUID === null) return null;
         return read('projects',pkeyUUID,1).then(async res => {
             const project = firstOnly(format(res, Project));
-            if(project) project.team = await this.getTeam(project.teamid);
+            if(project) project.team = await this.getTeam('',pkeyUUID);
             return project;
         });
     }
@@ -259,7 +268,7 @@ export default class ContractService {
     static async updateProject(project){
         const sign = (buf, sign) => sign(buf, process.env.APP_KEY);
         const contract = await this.getScatterEos().contract(code, {signProvider:sign});
-        return contract.projectup(project.serialize(), userauth(project.account));
+        return contract.projectup(project.serialize(), 'nothing', userauth(project.account));
     }
 
     static async vote(vote, projectid, user){

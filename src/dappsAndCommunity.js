@@ -36,12 +36,20 @@ export default [
         url:'',
         bio:'Jeff has been a community supporter since the early days, he likes long walks to the bank and potatoes. Most importantly though, he really really likes EOS.'
     },{
-        name:'Carmel',
-        name2:'',
-        img:'/assets/img/sponsors/carmel.jpg',
-        url:'https://www.carmel.io',
+        name:'Tulip',
+        name2:' Conference',
+        img:'/assets/img/sponsors/tulip.jpg',
+        url:'https://tulipconf.com/',
         bio:`
-            The Decentralized Open Source Tech Education Platform that helps aspiring and seasoned Software Developers grow their skill set and track their growth through tokenized peer challenges.
+            The Tulip Conference is a next-gen blockchain technology conference being held in San Francisco in June of 2018. 
+        `
+    },{
+        name:'Everipedia',
+        name2:'',
+        img:'/assets/img/sponsors/everipedia.jpg',
+        url:'https://everipedia.org/',
+        bio:`
+            Everipedia is the next generation encyclopedia rebuilt for the modern age. With over 6 million articles and counting, it's already the world's largest English encyclopedia by content.
         `
     }
 ];

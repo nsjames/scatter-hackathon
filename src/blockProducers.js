@@ -27,12 +27,12 @@ export default [
         `,
         hosting:true,
     },{
-        name:'EOSSw',
-        name2:' Eden',
-        img:'/assets/img/sponsors/eossweden.jpg',
-        url:'',
+        name:'sw',
+        name2:'/eden',
+        img:'/assets/img/sponsors/sw-eden.jpg',
+        url:'http://edenx.io/',
         bio:`
-            EOS Sw Eden is a block producer focusing on community outreach, developer training, and green infrastructure.
+            The team behind sw/eden​ believes that we the people have the power to create a better world. What we need to do is unite, spread knowledge and finance projects that correspond with out moral compasses. 
         `,
         hosting:true,
     },{
@@ -86,16 +86,6 @@ export default [
     },
     {
         name:'EOS',
-        name2:'YS',
-        img:'/assets/img/sponsors/eosys.jpg',
-        url:'http://eosys.io',
-        bio:`
-            EOSYS is the First EOSIO Block Producer Candidate from Korea. EOSYS also created EOSscan.io in June of 2017, one of the most pivotal applications surrounding EOSIO.  
-        `,
-        hosting:true,
-    },
-    {
-        name:'EOS',
         name2:'Cafe',
         img:'/assets/img/sponsors/eoscafe.jpg',
         url:'http://eos.cafe',
@@ -144,14 +134,14 @@ export default [
         `,
         hosting:true,
     },
-    // {
-    //     name:'EOS',
-    //     name2:' Phoenix',
-    //     img:'/assets/img/sponsors/eossocal.jpg',
-    //     url:'http://www.google.com',
-    //     bio:`
-    //
-    //     `,
-    //     hosting:true,
-    // }
+    {
+        name:'EOS',
+        name2:' Tribe',
+        img:'/assets/img/sponsors/eos-tribe.jpg',
+        url:'https://eostribe.io/',
+        bio:`
+            We believe that everything we do for EOS is to enrich the lives of people across the globe. People are the reason we do what we do and we try to never lose sight of that.
+        `,
+        hosting:true,
+    }
 ]
