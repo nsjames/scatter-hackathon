@@ -28,7 +28,7 @@
 
 
                 <!-- Create Project -->
-                <section v-if="isOwner() && !project && loaded">
+                <section v-if="isOwner() && loaded && (!project || creatingProject)">
 
                     <hr />
                     <section class="box" v-if="!creatingProject">

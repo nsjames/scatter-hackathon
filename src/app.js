@@ -44,6 +44,7 @@ class App {
                 store.dispatch(Actions.SET_SCATTER, window.scatter);
                 store.dispatch(Actions.SET_IDENTITY, window.scatter.identity);
 
+                ContractService.setScatter(window.scatter);
                 ContractService.setApp(process.env.APP_ACC);
                 ContractService.setSignProvider(signargs => {
                     return signargs.sign(signargs.buf, process.env.APP_KEY)

@@ -325,8 +325,7 @@ describe('Hack Til Dawn EOSIO Contract', () => {
 
     const createProject = async () => {
         const leader = teamOwner();
-        const team = teams[0];
-        const project = new Project(team.keyid, 'SomeProject');
+        const project = new Project(leader.keyid, 'SomeProject');
         return ContractService.createProject(project, identityFor(leader).sign(signHash)).catch(() => {});
     }
 
@@ -369,7 +368,6 @@ describe('Hack Til Dawn EOSIO Contract', () => {
         new Promise(async() => {
             const created = await createProject();
             assert(!!created, "Could not create a new project");
-            console.log('TEAM OWNER---------------------', teamOwner());
             projects = await ContractService.getProjects();
             assert(projects.length === 1, "Did not create the new project.");
             done();
@@ -381,7 +379,7 @@ describe('Hack Til Dawn EOSIO Contract', () => {
     it('should set a fake scatter on the scope', () => {
         const leader = teamOwner();
         signProvider = signargs => [signargs.sign(signargs.buf, identityFor(leader).privateKey), signargs.sign(signargs.buf, process.env.APP_KEY)];
-        store.state.scatter = {eos:() => Eos.Localnet({httpEndpoint:host(), signProvider})};
+        ContractService.setScatter({eos:() => Eos.Localnet({httpEndpoint:host(), signProvider})});
     });
 
     it('should allow a team to update a project', done => {
@@ -399,7 +397,7 @@ describe('Hack Til Dawn EOSIO Contract', () => {
     const vote = async () => {
         const v = new ProjectVote(1,1,1,0,0);
         await ContractService.vote(v, projects[0].teamid, ideaOwner());
-        projects = ContractService.getProjects();
+        projects = await ContractService.getProjects();
     }
 
     it('should NOT allow a voter to vote on a project while they do not have an account', done => {
@@ -426,11 +424,28 @@ describe('Hack Til Dawn EOSIO Contract', () => {
         const voter = ideaOwner();
         console.log('voter', voter);
         signProvider = signargs => [signargs.sign(signargs.buf, identityFor(voter).privateKey), signargs.sign(signargs.buf, process.env.APP_KEY)];
+        ContractService.setScatter({eos:() => Eos.Localnet({httpEndpoint:host(), signProvider})});
+    });
+
+    it('should NOT allow a voter to vote on a project while voting is closed', done => {
+        new Promise(async() => {
+            const voted = await vote().catch(() => null);
+            assert(!voted, "Voting was open")
+            done();
+        })
+    });
+
+    it('setting voting phase', done => {
+        _self.contract(code).then(async hack => {
+            await hack.togglev(1,_selfopts);
+            done();
+        });
     });
 
     it('should allow a voter to vote on a project', done => {
         new Promise(async() => {
-            const created = await vote();
+            const voted = await vote();
+            console.log(projects);
             assert(projects[0].votes.use_of_blockchain === 1, "Use of blockchain should be 1.");
             done();
         })

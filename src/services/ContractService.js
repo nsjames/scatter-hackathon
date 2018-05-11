@@ -65,18 +65,20 @@ const randomAccountName = () => {
     return text;
 };
 
+let scatter = null;
 let scateos = null;
 
 export default class ContractService {
 
     constructor(){};
 
+
+
     static getEosNetwork(){ return eosNetwork; }
     static getScatterEos(){
-        console.log('scatter----------', store.scatter.eos)
-        if(!scateos) scateos = store.state.scatter.eos(eosNetwork, Eos.Localnet, {});
-        return scateos;
+        return scatter.eos(eosNetwork, Eos.Localnet, {});
     }
+    static setScatter(_scatter){ scatter = _scatter; }
     static setSignProvider(_signProvider){ signProvider = _signProvider; }
     static setApp(_app){ app = _app; }
 
