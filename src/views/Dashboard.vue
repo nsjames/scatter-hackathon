@@ -48,7 +48,7 @@
                             <h2>Your account has been generated!</h2>
                             <p>
                                 Go into Scatter and import the account into your Identity using the network that was just added.
-                                We also gave you 500 EOS to play around with on the hackathon Dapps, don't spend it all in one place.
+                                We also gave you 200 EOS to play around with on the hackathon Dapps, don't spend it all in one place.
                                 <br><br>
                                 Once you're done refresh this page.
                             </p>

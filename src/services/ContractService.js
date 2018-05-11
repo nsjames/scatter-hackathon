@@ -112,7 +112,7 @@ export default class ContractService {
             const account = await eos.newaccount({ creator: app, name, owner:publicKey, active:publicKey, recovery:app, deposit:`1 EOS` }).catch(reject);
             const addedUserAccount = await this.addUserAccount(user, name, sig).catch(reject);
             const token = await eos.contract('eosio.token').catch(reject);
-            const transferred = await token.transfer(app, name, '500.0000 EOS', '').catch(reject);
+            const transferred = await token.transfer(app, name, '200.0000 EOS', '').catch(reject);
             resolve(name);
         });
     }
