@@ -81,9 +81,9 @@
 
             <!-- EDITING -->
             <section v-else>
-                <!--<section class="actions center">-->
-                    <!--<figure class="action" @click="editing = false;">Cancel Project Creation</figure>-->
-                <!--</section>-->
+                <section class="actions center">
+                    <figure class="action" @click="editing = false;">Cancel Editing Project</figure>
+                </section>
 
                 <!-- NAME -->
                 <section class="box">

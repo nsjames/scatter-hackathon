@@ -200,6 +200,8 @@ describe('Hack Til Dawn EOSIO Contract', () => {
             assert(!!created, "Could not create team");
             teams = await ContractService.getTeams();
             assert(teams.length === 1, "Wrong team count on blockchain");
+            const newTeam = await ContractService.getTeam(team.name);
+            console.log('new team-------------------------------------------', newTeam);
             done();
         });
     });
@@ -319,6 +321,21 @@ describe('Hack Til Dawn EOSIO Contract', () => {
             assert(!!kicked, "Could not kicked a user from the team");
             teams = await ContractService.getTeams();
             assert(teams[0].members.length === 1, "Did not kick the member from the team.");
+            done();
+        })
+    });
+
+    it('should allow a team to update their name and name reference', done => {
+        new Promise(async() => {
+            const leader = teamOwner();
+            const team = teams[0];
+            team.name = 'Test1234';
+            const updated = await ContractService.updateTeam(team, identityFor(leader).sign(signHash));
+            assert(!!updated, "Could not update the team");
+            teams = await ContractService.getTeams();
+            assert(teams[0].name === 'Test1234', "Team name did not change.");
+            const fetchedTeam = await ContractService.getTeam('Test1234');
+            assert(fetchedTeam && fetchedTeam.name === teams[0].name, "Could not get team by new name reference");
             done();
         })
     });
@@ -451,13 +468,13 @@ describe('Hack Til Dawn EOSIO Contract', () => {
         })
     });
 
-    // it('should do reads', done => {
-    //     new Promise(async() => {
-    //         const firstTeams = await ContractService.getTeams();
-    //         console.log('firstTeams', firstTeams);
-    //
-    //         done();
-    //     });
-    // });
+    it('should do reads', done => {
+        new Promise(async() => {
+            const firstTeams = await ContractService.getTeams();
+            console.log('firstTeams', firstTeams);
+
+            done();
+        });
+    });
 
 });
