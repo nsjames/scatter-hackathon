@@ -7,7 +7,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
 
-const production = process.env.SCATTER_HACK_ENV === 'production';
+const production = true;//process.env.SCATTER_HACK_ENV === 'production';
 const vueAlias = `vue/dist/vue${production ? '.min' : ''}.js`;
 const productionPlugins = !production ? [] : [
     new UglifyJsPlugin()
