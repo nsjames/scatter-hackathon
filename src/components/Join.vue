@@ -9,7 +9,8 @@
         <section class="box" v-if="scatter && !identity">
             <h2>Scatter Detected.</h2>
             <p>
-                You will need an Identity, if you don't have one yet open up Scatter and create one.
+                Scatter uses Identities to authenticate you with asymmetrical encryption. When you first install Scatter it will
+                create an Identity for you with no information inside of it, but which can already provide secure authentication.
             </p>
 
             <figure class="button" @click="authenticateWithScatter()">Authenticate with <b>Scatter</b></figure>
@@ -17,7 +18,7 @@
         <section class="box" v-if="!scatter">
             <h2>Doesn't look like you have Scatter.</h2>
             <p>
-                You will need Scatter installed to participate in teams or voting.<br>
+                You will need Scatter installed to participate in the hackathon as a team member or a voter.<br>
                 Scatter will allow you to authenticate with Hack Til Dawn without passwords.
             </p>
 
@@ -59,4 +60,7 @@
 </script>
 
 <style lang="scss">
+    a {
+        text-decoration: none !important;
+    }
 </style>

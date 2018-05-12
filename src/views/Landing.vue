@@ -7,7 +7,7 @@
 
 
             <section class="box large-pad">
-                <h2 style="margin-top:0;">Time Til Hackathon Opens</h2>
+                <h2 style="margin-top:0;">Time Til Hackathon Voting Opens</h2>
                 <figure class="os clock">
                     <span v-if="days > 0">{{days | twoDigit}} :</span>
                     <span>{{hours | twoDigit}} :</span>
@@ -234,8 +234,6 @@
             date: null,
             diff: 0
         }},
-        // num users
-        // pricing
         computed: {
             seconds() { return Math.trunc(this.diff) % 60 },
             minutes() { return Math.trunc(this.diff / 60) % 60 },
@@ -246,7 +244,7 @@
             ])
         },
         mounted(){
-            const d = new Date('5/12/2018');
+            const d = new Date('5/20/2018');
             this.date = Math.trunc(+d/1000);
             this.now = Math.trunc((new Date()).getTime() / 1000);
             this.diff = this.date - this.now;

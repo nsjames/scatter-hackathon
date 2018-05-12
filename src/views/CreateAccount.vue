@@ -176,9 +176,12 @@
                     const created = await ContractService.createUser(this.user, sig, this.identity.hash).catch(error => {
                         this.error = JSON.parse(error).error.details[0].message.replace('condition: assertion failed: ', '');
                     });
+                    if(!created) return;
 
-                    const user = await ContractService.getUserFromPublicKey(this.identity.publicKey).catch(() => {});
-                    if(!user) return this.error = 'There seems to have been a problem creating this user. Try again.'
+                    const user = await ContractService.getUserFromPublicKey(this.identity.publicKey).catch(error => {
+                        this.error = JSON.parse(error).error.details[0].message.replace('condition: assertion failed: ', '');
+                    });
+                    if(!user) return;
 
                     this[Actions.SET_USER](user);
                     if(this.user.type === UserTypes.VOTER) this.$router.push({name:RouteNames.TEAMS});

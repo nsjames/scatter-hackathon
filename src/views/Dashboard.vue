@@ -135,6 +135,8 @@
     import murmur from 'murmurhash'
     import {UserTypes} from '../models/User'
 
+    let timer = null;
+
     export default {
         data(){ return {
             routeNames:RouteNames,
@@ -154,11 +156,13 @@
             ])
         },
         mounted(){
+            if(this.identity){
+                if(this.user) this.loadUserData();
+                this.loaded = true;
+            }
             setTimeout(async () => {
                 if(!this.identity) return this.$router.push({name:RouteNames.INDEX});
-                if(this.user) this.loadUserData();
-                this.loaded = true
-            }, 1500);
+            }, 2000);
         },
 
         methods: {
@@ -179,7 +183,6 @@
                     ContractService.getSignature(this.scatter, this.user.key).then(sig => {
                         if(!sig) return false;
                         const generated = ContractService.generateAccount(this.user, this.publicKey, sig).catch(error => {
-                            console.log('err', error);
                             this.error = JSON.parse(error).error.details[0].message.replace('condition: assertion failed: ', '');
                         });
                         if(!generated) return false;
@@ -215,6 +218,10 @@
             async user(){
                 if(!this.user) return false;
                 this.loadUserData();
+            },
+            identity(){
+                if(this.user) this.loadUserData();
+                this.loaded = true;
             }
         }
     }

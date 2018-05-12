@@ -213,11 +213,6 @@
                     return false;
                 }
 
-//                if(this.cloneUser.name.length < 3){
-//                    this.error = `The team's name must be at least 2 characters long`;
-//                    return false;
-//                }
-
                 if(this.cloneUser.bio.length > 500){
                     this.error = `The user's bio must be less than 500 characters long`
                     return false;

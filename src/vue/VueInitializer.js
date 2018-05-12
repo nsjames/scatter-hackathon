@@ -38,15 +38,15 @@ export default class VueInitializer {
     }
 
     setupRouting(routes, middleware){
-        const router = new VueRouter({routes}); //, mode: 'history'
+        const router = new VueRouter({routes, mode: 'history'}); //, mode: 'history'
         router.beforeEach((to, from, next) => middleware(to, next, store));
         return router;
     }
 
     setupVue(router){
         const app = new Vue({router, store});
-        app.$mount('#scatter-demos');
-        document.getElementById('scatter-demos').removeAttribute('id')
+        app.$mount('#hackathon');
+        document.getElementById('hackathon').removeAttribute('id')
     }
 
 }

@@ -167,7 +167,6 @@
                     this.creatingIdea = false;
                     this.submittingIdea = false;
                     ContractService.getIdea(murmur.v2(this.idea.description)).then(idea => {
-                        console.log('idea', idea);
                         if(idea) this.ideas.unshift(idea);
                     })
                 });

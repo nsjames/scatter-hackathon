@@ -138,9 +138,19 @@ export default [
         name:'EOS',
         name2:' Tribe',
         img:'/assets/img/sponsors/eos-tribe.jpg',
-        url:'https://eostribe.io/',
+        url:'https://eostribe.io',
         bio:`
             We believe that everything we do for EOS is to enrich the lives of people across the globe. People are the reason we do what we do and we try to never lose sight of that.
+        `,
+        hosting:true,
+    },
+    {
+        name:'EOS',
+        name2:' Argentina',
+        img:'/assets/img/sponsors/eosargentina.jpg',
+        url:'https://www.eosargentina.io',
+        bio:`
+            EOS Argentina is Non-For-Profit Community Block Producer that focuses on the adoption of the EOS Blockchain in Latin America.
         `,
         hosting:true,
     }

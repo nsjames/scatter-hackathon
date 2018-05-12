@@ -74,9 +74,6 @@
         },
         mounted(){
             ContractService.getAllTeams().then(teams => this.teams = teams);
-            setTimeout(() => {
-                console.log(this.user);
-            }, 1000)
         },
 
         methods: {

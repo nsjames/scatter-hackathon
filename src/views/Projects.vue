@@ -64,7 +64,6 @@
         mounted(){
             ContractService.getAllProjects().then(projects => {
                 projects.map(async project => {
-                    console.log('projects', projects);
                     await ContractService.getProject('', project.teamid).then(project => this.projects.unshift(project));
                 });
             });

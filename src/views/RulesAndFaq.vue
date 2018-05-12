@@ -10,6 +10,9 @@
                 <a href="#uses-scatter">Hack Til Dawn uses Scatter</a>
                 <a href="#creating-your-user">Creating Your User</a>
                 <a href="#voting-on-projects">Voting on Projects</a>
+                <a href="#all-about-teams">All about Teams</a>
+                <a href="#all-about-projects">All about Projects</a>
+                <a href="#rules-for-the-prizes">Rules for the Prizes</a>
                 <div style="height:20px;"></div>
             </section>
 
@@ -39,11 +42,12 @@
                     <i>There are different types of users.</i>
                 </figure>
                 <hr class="short" />
-                There are 4 types of users, within 2 classes.
+                There are 4 types of users, within 2 classes.<br>
+                You can only have one user, choose wisely.
                 <br><br>
                 <h3>Voters</h3>
                 Voter users can only vote on projects. They can not create or join teams or work on projects.
-                Voting users start with 10,000 EOS.
+                Voting users start with 200 EOS.
                 <br><br>
                 <h3>Hackers, Doodlers and Big Mouths</h3>
                 These are the team member users. Each serves a different purpose in the team and they should work together to create
@@ -61,8 +65,8 @@
                     <i>Hack Til Dawn uses it's own EOS node.</i>
                 </figure>
                 <hr class="short" />
-                The EOS keys you have will not work with Hack Til Dawn. Once you have authenticated with Scatter you will have to generate an EOS account.
-                You can do so by following the steps from within your <b>Dashboard</b>.
+                The EOS keys you have will not work with Hack Til Dawn. Once you have authenticated with Scatter and created your User you will have to generate an EOS account.
+                <u>You can do so by following the steps from within your</u> <b>Dashboard</b>.
                 <hr class="short" />
 
 
@@ -106,7 +110,7 @@
                 <hr class="short" />
                 <h3>Only Hackers, Doodlers, and Big Mouths can create/join teams.</h3><br>
                 To create a Project which can be voted on you must first create a Team. Only Teams can become Projects.
-                There is not limitation on the amount of users that a team can contain though, so if you <b>do</b> want to work alone
+                There is no limitation on the amount of users that a team can contain though, so if you <b>do</b> want to work alone
                 you can just create a team for yourself.
                 <br><br>
                 <h3>To create a team:</h3>
@@ -140,8 +144,8 @@
                 <hr class="short" />
                 There's a few things you'll need to know.
                 <hr class="short" />
-                <h3>Users only have 10,000 EOS each.</h3>
-                If your project moves funds around, try to make it in small amounts if possible. You don't want to deplete a voter's funds on one project.
+                <h3>Users only have 200 EOS each.</h3>
+                If your project moves funds around, make it in small amounts. You don't want to deplete a voter's funds on one project.
                 <hr class="short" />
                 <h3>Unless you're making a Tool Project, your project should be visual.</h3>
                 What this means is that voters should be able to interact with your Smart Contracts using a front-end. Part of their vote will be about user
@@ -166,8 +170,7 @@
                 </figure>
                 <hr class="short" />
                 Voters who have donated at least $10 and voted on at least 10 projects will take part in the community raffle.
-                The prizes will be given to 3 randomly selected voters who meet those requirements regardless of donation size.
-                The winners will have to prove ownership of their Ethereum account.
+                The prizes will be given to randomly selected voters who meet those requirements regardless of donation size.
                 <hr class="short" />
 
                 <figure class="center spacer">
@@ -175,7 +178,10 @@
                     <i>Some legalities.</i>
                 </figure>
                 <hr class="short" />
-                <h3>We will send ETH instead of EOS to winners from the USA and China. </h3>
+                <h3>No travel expenses are provided.</h3>
+                If you win one of the location-based prizes, the prize will not include travel expenses such as flight and hotel.
+                <hr class="short" />
+                <h3>We will send ETH instead of EOS to winners from the USA and China.</h3>
                 If a winner is from either of those countries their winnings will be converted to ETH first, and then sent to their desired address.
                 <hr class="short" />
                 <h3>Your winnings are taxable.</h3>
