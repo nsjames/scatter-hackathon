@@ -69,21 +69,22 @@
                 <!--</div>-->
             </figure>
 
-            <!--<section class="prize-box blue-back shiny" style="margin-top:30px;">-->
-                <!--<section class="left">-->
-                    <!--Highest Voted Grand Winner-->
-                    <!--<p style="font-size:13px; line-height:13px; margin-top:5px;">-->
-                        <!--This winner is selected from the 4 Grand Winners based on the most votes.-->
-                        <!--They also get all of the rewards from being one of the grand winners.-->
-                    <!--</p>-->
-                <!--</section>-->
-                <!--<section class="right">-->
+            <section class="prize-box blue-back shiny" style="margin-top:30px;">
+                <section class="left">
+                    Highest Voted Grand Winner
+                    <p style="font-size:13px; line-height:13px; margin-top:5px;">
+                        This winner is selected from the 4 Grand Winners based on the most votes.
+                        They also get all of the rewards from being one of the grand winners.
+                    </p>
+                </section>
+                <section class="right">
                     <!--<figure class="prize" style="font-size:22px;">This team will be able to compete as a finalist in the block.one EOSIO Global Hackathon!</figure>-->
-                    <!--<figure class="prize">4 Tickets to the Tulip Conference in San Francisco</figure>-->
-                <!--</section>-->
-            <!--</section>-->
+                    <figure class="prize">4 Tickets to the Tulip Conference in San Francisco</figure>
+                    <figure class="prize">Promoted Dapp on <u>eosindex.io</u></figure>
+                </section>
+            </section>
 
-            <section class="prize-box blue-back" style="margin-top:30px;">
+            <section class="prize-box blue-back">
                 <section class="left">
                     4 Grand Winners
                     <p style="font-size:13px; line-height:13px; margin-top:5px;">
@@ -93,7 +94,6 @@
                 </section>
                 <section class="right">
                     <figure class="prize">1/5th of the Pot</figure>
-                    <figure class="prize">Promoted Dapp on <u>eosindex.io</u></figure>
                 </section>
             </section>
 
